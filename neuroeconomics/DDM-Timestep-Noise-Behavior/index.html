@@ -1,0 +1,376 @@
+<!doctype html>
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if (IE 7)&!(IEMobile)]><html class="no-js lt-ie9 lt-ie8" lang="en"><![endif]-->
+<!--[if (IE 8)&!(IEMobile)]><html class="no-js lt-ie9" lang="en"><![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"><!--<![endif]-->
+<head>
+<meta charset="utf-8">
+<title>DDM: Does timestep size affect noise parameter? &#8211; Alexander Fengler</title>
+<meta name="description" content="This is an example">
+<meta name="keywords" content="sample post">
+
+  
+
+<!-- Twitter Cards -->
+<meta name="twitter:title" content="DDM: Does timestep size affect noise parameter?">
+<meta name="twitter:description" content="This is an example">
+<meta name="twitter:site" content="@UniFersAlex">
+<meta name="twitter:creator" content="@UniFersAlex">
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://localhost:4000/images/bio-photo.png">
+
+<!-- Open Graph -->
+<meta property="og:locale" content="en_US">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DDM: Does timestep size affect noise parameter?">
+<meta property="og:description" content="This is an example">
+<meta property="og:url" content="http://localhost:4000/neuroeconomics/DDM-Timestep-Noise-Behavior/">
+<meta property="og:site_name" content="Alexander Fengler">
+
+
+
+
+
+<link rel="canonical" href="http://localhost:4000/neuroeconomics/DDM-Timestep-Noise-Behavior/">
+<link href="http://localhost:4000/feed.xml" type="application/atom+xml" rel="alternate" title="Alexander Fengler Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="http://localhost:4000/assets/css/main.css">
+<!-- Webfonts -->
+<script src="//use.edgefonts.net/source-sans-pro:n2,i2,n3,i3,n4,i4,n6,i6,n7,i7,n9,i9;source-code-pro:n4,n7;volkhov.js"></script>
+
+<meta http-equiv="cleartype" content="on">
+
+<!-- HTML5 Shiv and Media Query Support -->
+<!--[if lt IE 9]>
+  <script src="http://localhost:4000/assets/js/vendor/html5shiv.min.js"></script>
+  <script src="http://localhost:4000/assets/js/vendor/respond.min.js"></script>
+<![endif]-->
+
+<!-- Modernizr -->
+<script src="http://localhost:4000/assets/js/vendor/modernizr-2.7.1.custom.min.js"></script>
+
+<!-- Icons -->
+<!-- 16x16 -->
+<link rel="shortcut icon" href="http://localhost:4000/favicon.ico">
+<!-- 32x32 -->
+<link rel="shortcut icon" href="http://localhost:4000/favicon.png">
+<!-- 57x57 (precomposed) for iPhone 3GS, pre-2011 iPod Touch and older Android devices -->
+<link rel="apple-touch-icon-precomposed" href="http://localhost:4000/images/apple-touch-icon-precomposed.png">
+<!-- 72x72 (precomposed) for 1st generation iPad, iPad 2 and iPad mini -->
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="http://localhost:4000/images/apple-touch-icon-72x72-precomposed.png">
+<!-- 114x114 (precomposed) for iPhone 4, 4S, 5 and post-2011 iPod Touch -->
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="http://localhost:4000/images/apple-touch-icon-114x114-precomposed.png">
+<!-- 144x144 (precomposed) for iPad 3rd and 4th generation -->
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://localhost:4000/images/apple-touch-icon-144x144-precomposed.png">
+
+</head>
+
+<body id="post">
+
+<div class="navigation-wrapper">
+	<nav role="navigation" id="site-nav" class="animated drop">
+	    <ul>
+      
+		    
+		        
+		    
+		    <li><a href="http://localhost:4000/about/" >About Me</a></li>
+		  
+		    
+		        
+		    
+		    <li><a href="http://localhost:4000/statistics/" >Statistics</a></li>
+		  
+		    
+		        
+		    
+		    <li><a href="http://localhost:4000/neuroeconomics/" >Neuroeconomics</a></li>
+		  
+		    
+		        
+		    
+		    <li><a href="http://localhost:4000/research/" >Research</a></li>
+		  
+		    
+		        
+		    
+		    <li><a href="http://localhost:4000/code/" >Code</a></li>
+		  
+		    
+		        
+		    
+		    <li><a href="http://localhost:4000/resources/" >Resources</a></li>
+		  
+		    
+		        
+		    
+		    <li><a href="http://localhost:4000/search/" >Search</a></li>
+		  
+	    </ul>
+	</nav>
+</div><!-- /.navigation-wrapper -->
+
+<!--[if lt IE 9]><div class="upgrade"><strong><a href="http://whatbrowser.org/">Your browser is quite old!</strong> Why not upgrade to a different browser to better enjoy this site?</a></div><![endif]-->
+
+<header class="masthead">
+	<div class="wrap">
+        
+    		<a href="http://localhost:4000/" class="site-logo" rel="home" title="Alexander Fengler"><img src="http://localhost:4000/images/bio-photo.png" width="200" height="200" alt="Alexander Fengler logo" class="animated fadeInUp"></a>
+        
+        <h1 class="site-title animated fadeIn"><a href="http://localhost:4000/">Alexander Fengler</a></h1>
+		<h2 class="site-description animated fadeIn" itemprop="description">Neuroeconomist</h2>
+	</div>
+</header><!-- /.masthead -->
+
+<div class="js-menu-screen menu-screen"></div>
+
+<div id="main" role="main">
+  <article class="hentry">
+    
+    <div class="entry-wrapper">
+      <header class="entry-header">
+        <span class="entry-tags"><a href="http://localhost:4000/tags/#sample post" title="Pages tagged sample post">sample post</a></span>
+        
+          <h1 class="entry-title">DDM: Does timestep size affect noise parameter?</h1>
+        
+      </header>
+      <footer class="entry-meta">
+        
+          
+        
+          <img src="http://localhost:4000/images/af_authoravatar.jpg" class="bio-photo" alt="Alexander Fengler bio photo"></a>
+        
+        <span class="author vcard">By <span class="fn">Alexander Fengler</span></span>
+        <span class="entry-date date published"><time datetime="2015-01-30T00:00:00-08:00"><i class="fa fa-calendar-o"></i> January 30, 2015</time></span>
+        
+        
+        <span class="social-share-twitter">
+  <a href="https://twitter.com/intent/tweet?hashtags=samplepost&amp;text=DDM:%20Does%20timestep%20size%20affect%20noise%20parameter?&amp;url=http://localhost:4000/neuroeconomics/DDM-Timestep-Noise-Behavior/&amp;via=UniFersAlex" title="Share on Twitter" itemprop="Twitter"><i class="fa fa-twitter-square"></i> Tweet</a>
+</span>
+<span class="social-share-facebook">
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/neuroeconomics/DDM-Timestep-Noise-Behavior/" title="Share on Facebook" itemprop="Facebook"><i class="fa fa-facebook-square"></i> Like</a>
+</span>
+<span class="social-share-googleplus">
+  <a href="https://plus.google.com/share?url=http://localhost:4000/neuroeconomics/DDM-Timestep-Noise-Behavior/" title="Share on Google Plus" itemprop="GooglePlus"><i class="fa fa-google-plus-square"></i> +1</a>
+</span>
+<!-- /.social-share -->
+        
+      </footer>
+      <div class="entry-content">
+        <p>My daily work in the laboratory deals with fitting drift diffusion models to behavioral data (reaction times, decisions) from simple choice experiments. While we also work with more elaborate verisons of the model for which this does not necessarily hold, the standard drift diffusion model has two key parameters. </p>
+
+<ol>
+  <li>The drift rate <em>d</em> which provides a fixed state-change in the integrator by time/integration step</li>
+  <li>The noise <em>s</em> (normal gaussian) which is added at each time/integration step</li>
+</ol>
+
+<p>Essentially the model implements what is called a wiener-process, with a fixed offset by timestep, as described this is the <em>drift rate</em>. When simulating the model, we essentially track the state of the integrator at each timestep/integrator step and if the state becomes equal or bigger than 1 or equal or smaller -1, we register a choice for an item x or y at the given reaction time (translating model-timesteps into milliseconds).</p>
+
+<p>Now, as these fitting procedures are computationally quite costly, as easy way to reduce the number of steps in system is by making the model-timesteps bigger as measured in real time. Instead of calculating a new state of the integrator by steps of one millisecond, timesteps of two, five, ten or more milliseconds can be used. This changes the system on two accounts. First, it introduces some imprecision in the outcome space (predicted reactions times) where results can naturally only be binned according to timestates that are actually tracked in the simulation process (e.g. instead or outcomes of 1000ms,1001ms,1002ms we can now only observe 1000ms,1010ms,1020ms). Second, and more intricate, making timestpes more coarse will have an influence on the optimal noise and drift parameters of the integrators. </p>
+
+<p>This is important, because, while researchers may use algorithms of different temporal resolution, they still want to compare their set of optimal parameters with what has been reported elsewhere (either based on the same experimental paradigm or also across paradigms). In this post I will try to walk through a process of figuring out for myself the changes in the noise term that appear when simulating realtively more timesteps. I ignore the drift rate in the following by assuming there is zero drift rate in the model.
+In a follow-up post I may solve for bost, the drift rate and the noise parameter to see whether the drift may change non-trivially (non-linearly).</p>
+
+<h3 id="visualizing-the-basic-setup">Visualizing the basic setup</h3>
+
+<p>The graphic below shows the basic scenario that I am investigating in this post. It already hints at the fact that keeping the noise in the integrator process constant will increase the spread of the final states with increasing number of steps of integration. This fact is illustrated by the red (end states after one step of integration) and blue (end states with the same integrator noise parameter after five steps of integration) density functions.</p>
+
+<p><img src="../../blog_images/2015-01-30_ddm_parameter_behavior/ddm_timesteps_illustrationmall.png" alt="" /> </p>
+
+<p>In what follows, I will demonstrate what happens to the noise parameters, when we increase the temporal resolution of our algorithm, but condition <em>s</em> (the noise parameter of the integrator process) to generate exactly the same distribution of <em>end states</em>  that was generated by our <em>reference s</em> in our reference temporal resolution. As mentioned above, I am going to ignore any effect on the drift rate, which I assume to be simply linear (if 1 at timesteps of one millisecond, then 10 at timesteps of ten milliseconds).</p>
+
+<h3 id="the-procedure-has-three-basic-steps">The procedure has three basic steps:</h3>
+
+<p><em>First</em>, we pick a <em>reference s</em> (arbitrary) for our reference timestep (we simply assume the base model to have one step). In our case <em>s</em> is 1. Now from this we know the probability density function (trivially a gaussian normal distribution with mean equal to 0 and standard deviation equal to 1) for all potential end states of the model after one timestep.</p>
+
+<p><em>Second</em>, now we need an implementation of the diffusion process which we are going to simulate. We do this simulation with a varying number of timesteps. Moreover, for each round of simulations for which any <em>s</em> for the integrator per step has been picked, we can solve for the standard deviation of the density of end states. Having this standard deviation, we can move to part three.</p>
+
+<p><em>Third</em>, for <em>each number of steps</em> in the process (from 1 to 10 implemented here), we can now solve for the <em>s</em> we need to apply in the drift diffusion process, to get exactly the same distribution (guassian normal with mean equal zero and standard deviation equal to zero) of possible end-states of the accumulator as in the <em>one step case</em>.</p>
+
+<h3 id="coding">Coding</h3>
+<p>In the following I am showing a fully reproducable r-code to illustrate this procedure.</p>
+
+<h5 id="loading-necessary-packages">Loading Necessary Packages</h5>
+
+<div class="highlight"><pre><code class="language-r" data-lang="r"><span class="kn">library</span><span class="p">(</span>ggplot2<span class="p">)</span> <span class="c1"># for plotting results</span>
+<span class="kn">library</span><span class="p">(</span>neldermead<span class="p">)</span> <span class="c1"># for solving the minimization </span>
+<span class="kn">library</span><span class="p">(</span>tidyr<span class="p">)</span> <span class="c1"># for some data manipulation</span></code></pre></div>
+
+<h5 id="functions-used">Functions used</h5>
+
+<p>Implementation of the drift diffusion process:</p>
+
+<div class="highlight"><pre><code class="language-r" data-lang="r"><span class="c1"># The function takes only one input which is the standard deviation of the noise</span>
+  SimpleDiffusion <span class="o">=</span> <span class="kr">function</span><span class="p">(</span>std<span class="p">){</span>
+  <span class="c1"># Initialize output vector with length equal to number of simulation runs</span>
+  out <span class="o">=</span> <span class="kp">rep</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="m">20000</span><span class="p">)</span> 
+  <span class="c1"># Now for each simulation run</span>
+  <span class="kr">for</span> <span class="p">(</span>i <span class="kr">in</span> <span class="kp">seq_len</span><span class="p">(</span><span class="m">20000</span><span class="p">)){</span>
+  <span class="c1"># And within run for each step up to step.num (existing global variable at the point of execution)</span>
+    <span class="kr">for</span> <span class="p">(</span>j <span class="kr">in</span> <span class="kp">seq_len</span><span class="p">(</span>step.num<span class="p">)){</span>
+      <span class="c1"># We caluculate the state of the accumulator</span>
+      out<span class="p">[</span>i<span class="p">]</span> <span class="o">=</span> out<span class="p">[</span>i<span class="p">]</span> <span class="o">+</span> rnorm<span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">0</span><span class="p">,</span>std<span class="p">)</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+  <span class="c1"># We return the vector with all final states</span>
+  <span class="kr">return</span><span class="p">(</span>out<span class="p">)</span>
+<span class="p">}</span></code></pre></div>
+
+<p>Having the output vector we need to find the best estimate for <em>s</em> that describes the distribution of outcome states.</p>
+
+<p>The next function is used to compute a log-likelihood for a given <em>s</em>.</p>
+
+<div class="highlight"><pre><code class="language-r" data-lang="r"><span class="c1"># Function takes as input a standard deviation &quot;sd.var.inside&quot; </span>
+LogLikDnorm <span class="o">=</span> <span class="kr">function</span><span class="p">(</span>sd.var.inside<span class="p">){</span>
+  <span class="c1"># negative standard deviation is not allowed and will provide huge outcome value</span>
+  <span class="kr">if</span> <span class="p">(</span>sd.var.inside <span class="o">&lt;=</span> <span class="m">0</span><span class="p">){</span>
+    LogLik<span class="o">=</span> <span class="m">9999999</span> 
+  <span class="p">}</span> <span class="kr">else</span> <span class="p">{</span>
+  <span class="c1"># if valid (positive) standard deviation provided, we calculate the real log-likelihood </span>
+      out <span class="o">=</span> dnorm<span class="p">(</span>vec<span class="p">,</span><span class="m">0</span><span class="p">,</span>sd.var.inside<span class="p">)</span>
+      LogLik <span class="o">=</span> <span class="o">-</span><span class="kp">sum</span><span class="p">(</span><span class="kp">log</span><span class="p">(</span>out<span class="p">))</span> <span class="c1"># out is available in global environment by the time called, comes from SimpleDiffusion()</span>
+  <span class="p">}</span>
+  <span class="c1"># return log-likelihood for given standard deviation </span>
+  <span class="kr">return</span><span class="p">(</span>LogLik<span class="p">)</span>
+<span class="p">}</span></code></pre></div>
+
+<p>Lastly we need a loss-function that tells us how bad we are doing with our current choice of <em>s</em> for the given number of steps in approaching the original outcome distribution
+based on one timestep.</p>
+
+<div class="highlight"><pre><code class="language-r" data-lang="r"><span class="c1"># Takes as input a standard deviation</span>
+LossFun <span class="o">=</span> <span class="kr">function</span><span class="p">(</span>std<span class="p">){</span>
+<span class="c1"># Same as above, only positive standard deviation are treated as valid</span>
+  <span class="kr">if</span> <span class="p">(</span>std <span class="o">&lt;=</span> <span class="m">0</span><span class="p">){</span>
+    std.loss <span class="o">=</span> <span class="m">9999999</span>
+  <span class="kr">return</span><span class="p">(</span>std.loss<span class="p">)</span>
+  <span class="p">}</span> <span class="kp">else</span><span class="p">{</span>
+      <span class="c1"># We get the outcome of the diffusion process stored in global variable &quot;vec&quot; taking as input integrator noise standard deviation &quot;std&quot;</span>
+      vec <span class="o">&lt;&lt;-</span> SimpleDiffusion<span class="p">(</span>std<span class="p">)</span>
+      <span class="c1"># Now we search for the standard deviation in the integrator end states that fits the &quot;vec&quot; data best</span>
+      <span class="c1"># by applying fminsearch</span>
+      sol <span class="o">=</span> fminsearch<span class="p">(</span>LogLikDnorm<span class="p">,</span><span class="m">1</span><span class="p">)</span>
+      
+      <span class="c1"># we extract the standard deviation that fits the simulated integrator end states best from all fminsearch output</span>
+      std.opti <span class="o">=</span> <span class="kp">as.vector</span><span class="p">(</span>sol<span class="o">$</span>optbase<span class="o">$</span>xopt<span class="p">)</span>
+      <span class="c1"># and calculate a loss relative to our reference standard deviation for integrator end states steming from the case where we only use</span>
+      <span class="c1"># one step of accumulation</span>
+      std.loss <span class="o">=</span> <span class="p">(</span>std.opti <span class="o">-</span> std.fixed<span class="p">)</span><span class="o">^</span><span class="m">2</span>
+  <span class="p">}</span>
+  <span class="c1"># Returning loss for fminsearch to apply new input noise integrator standard deviation</span>
+  <span class="kr">return</span><span class="p">(</span>std.loss<span class="p">)</span>
+<span class="p">}</span></code></pre></div>
+
+<h4 id="running-the-model">Running the model</h4>
+
+<div class="highlight"><pre><code class="language-r" data-lang="r"><span class="c1"># Run optimization and get outcomes</span>
+
+<span class="c1"># Define our reference integrator noise standard deviation</span>
+std.fixed <span class="o">=</span> <span class="m">1</span>
+<span class="c1"># Initialize the amount of steps that we want ot actually test</span>
+steps <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">2</span><span class="p">,</span><span class="m">3</span><span class="p">,</span><span class="m">4</span><span class="p">,</span><span class="m">5</span><span class="p">,</span><span class="m">6</span><span class="p">,</span><span class="m">7</span><span class="p">,</span><span class="m">8</span><span class="p">,</span><span class="m">9</span><span class="p">,</span><span class="m">10</span><span class="p">)</span>
+<span class="c1"># Initialize an output data.frame</span>
+solutions <span class="o">=</span> <span class="kt">data.frame</span><span class="p">(</span>steps <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">2</span><span class="p">,</span><span class="m">3</span><span class="p">,</span><span class="m">4</span><span class="p">,</span><span class="m">5</span><span class="p">,</span><span class="m">6</span><span class="p">,</span><span class="m">7</span><span class="p">,</span><span class="m">8</span><span class="p">,</span><span class="m">9</span><span class="p">,</span><span class="m">10</span><span class="p">),</span>best.sd <span class="o">=</span> <span class="kp">rep</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="m">10</span><span class="p">))</span>
+
+<span class="c1"># Run optimization</span>
+<span class="kr">for</span> <span class="p">(</span>i <span class="kr">in</span> steps<span class="p">){</span>
+  step.num <span class="o">&lt;&lt;-</span> i
+  sol.full <span class="o">=</span> fminsearch<span class="p">(</span>LossFun<span class="p">,</span><span class="m">1</span><span class="o">/</span>step.num<span class="p">)</span>
+  solutions<span class="o">$</span>best.sd<span class="p">[</span>solutions<span class="o">$</span>steps <span class="o">==</span> i<span class="p">]</span> <span class="o">=</span> <span class="kp">as.vector</span><span class="p">(</span>sol.full<span class="o">$</span>optbase<span class="o">$</span>xopt<span class="p">)</span>
+<span class="p">}</span>
+
+
+<span class="c1"># Plot Output</span>
+p <span class="o">=</span> ggplot<span class="p">(</span>data<span class="o">=</span>solutions<span class="p">,</span>aes<span class="p">(</span>x<span class="o">=</span>steps<span class="p">,</span>y<span class="o">=</span>best.sd<span class="p">))</span> <span class="o">+</span> theme_bw<span class="p">(</span>base_size<span class="o">=</span><span class="m">16</span><span class="p">)</span> <span class="o">+</span> geom_line<span class="p">(</span>linetype<span class="o">=</span><span class="s">&quot;dashed&quot;</span><span class="p">,</span>color<span class="o">=</span><span class="s">&quot;blue&quot;</span><span class="p">,</span>size <span class="o">=</span> <span class="m">1</span><span class="p">)</span> <span class="o">+</span> geom_point<span class="p">(</span>shape <span class="o">=</span> <span class="m">15</span><span class="p">,</span> size <span class="o">=</span> <span class="m">4</span><span class="p">)</span> <span class="o">+</span> ggtitle<span class="p">(</span><span class="s">&quot;Optimal SD by number Steps&quot;</span><span class="p">)</span>
+p</code></pre></div>
+
+<p><img src="../../blog_images/2015-01-30_ddm_parameter_behavior/optimal_sd.png" alt="" /> </p>
+
+<p>We can see that the standard deviation for the noise of the integrator, seems to follow something like a sqrt() function when we condition the distribution of endstates of the integrator to be steming from a constant distribution. </p>
+
+<h4 id="an-alternative-approach-to-illustrate-the-phenomenon">An alternative approach to illustrate the Phenomenon</h4>
+
+<p>Lastly, as an addition to aid understanding, it is also possible to simply plot the endstate-distribution for differing numbers of steps, given that the standard deviation of the integrator noise stays constant.</p>
+
+<div class="highlight"><pre><code class="language-r" data-lang="r"><span class="c1"># Define out vector</span>
+out  <span class="o">=</span> <span class="kt">data.frame</span><span class="p">(</span>steps.1 <span class="o">=</span> <span class="kp">rep</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="m">20000</span><span class="p">),</span>
+            steps.2 <span class="o">=</span> <span class="kp">rep</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="m">20000</span><span class="p">),</span>
+            steps.3 <span class="o">=</span> <span class="kp">rep</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="m">20000</span><span class="p">),</span>
+            steps.4 <span class="o">=</span> <span class="kp">rep</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="m">20000</span><span class="p">),</span>
+            steps.5 <span class="o">=</span> <span class="kp">rep</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="m">20000</span><span class="p">))</span>
+
+
+<span class="c1"># Run Diffusion process for differing timesteps and collect outputs in data frame</span>
+
+
+<span class="kr">for</span> <span class="p">(</span>i <span class="kr">in</span> <span class="kp">seq</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">5</span><span class="p">)){</span>
+  step.num <span class="o">=</span> i
+  out<span class="p">[,</span><span class="kt">c</span><span class="p">(</span><span class="kp">paste</span><span class="p">(</span><span class="s">&quot;steps.&quot;</span><span class="p">,</span><span class="kp">toString</span><span class="p">(</span>i<span class="p">),</span>sep<span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">))]</span> <span class="o">=</span> SimpleDiffusion<span class="p">(</span><span class="m">1</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="c1"># Bring data to long format for convenient plotting</span>
+out <span class="o">=</span> gather<span class="p">(</span>out<span class="p">,</span>steps<span class="p">,</span>values<span class="p">)</span>
+
+<span class="c1"># Plot Results</span>
+p.2 <span class="o">=</span> ggplot<span class="p">(</span>data<span class="o">=</span>out<span class="p">,</span>aes<span class="p">(</span>x<span class="o">=</span>values<span class="p">,</span>y <span class="o">=</span> <span class="m">..</span>density..<span class="p">,</span>fill<span class="o">=</span>steps<span class="p">))</span> <span class="o">+</span> theme_bw<span class="p">(</span>base_size<span class="o">=</span><span class="m">16</span><span class="p">)</span> <span class="o">+</span> geom_density<span class="p">(</span>alpha<span class="o">=</span><span class="m">0.4</span><span class="p">)</span> <span class="o">+</span> ggtitle<span class="p">(</span><span class="s">&quot;End-State Distributions&quot;</span><span class="p">)</span> <span class="o">+</span> ylab<span class="p">(</span><span class="s">&quot;Density&quot;</span><span class="p">)</span> <span class="o">+</span> xlab<span class="p">(</span><span class="s">&quot;End States&quot;</span><span class="p">)</span> <span class="o">+</span> scale_fill_manual<span class="p">(</span>values<span class="o">=</span><span class="kt">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">2</span><span class="p">,</span><span class="m">3</span><span class="p">,</span><span class="m">4</span><span class="p">,</span><span class="m">5</span><span class="p">),</span>labels<span class="o">=</span><span class="kt">c</span><span class="p">(</span><span class="s">&quot;1&quot;</span><span class="p">,</span><span class="s">&quot;2&quot;</span><span class="p">,</span><span class="s">&quot;3&quot;</span><span class="p">,</span><span class="s">&quot;4&quot;</span><span class="p">,</span><span class="s">&quot;5&quot;</span><span class="p">))</span>
+p.2</code></pre></div>
+
+<p><img src="../../blog_images/2015-01-30_ddm_parameter_behavior/same_sd_over_steps.png" alt="" /> </p>
+
+<p>We can see that the distribution of end states gets wider and wider with increasing number of steps of the integrator. Note that <em>s</em> of the noise in the integrator process is constant. </p>
+
+<p>This analysis should provide some intuition about how to convert parameters from drift diffusion processes across different algorithm specifications regarding timestep-sizes of the integrators. </p>
+
+<p>You can find all code and the markdown file of this post in this <a href="https://github.com/AlexanderFengler/ddm_noise_parameter_by_steps">github repository</a>.</p>
+
+        
+      </div><!-- /.entry-content -->
+    </div><!-- /.entry-wrapper -->
+    <nav class="pagination" role="navigation">
+      
+        <a href="http://localhost:4000/statistics/author-override/" class="btn" title="Override Author Byline Test Post">Previous</a>
+      
+      
+    </nav><!-- /.pagination -->
+  </article>
+</div><!-- /#main -->
+
+<div class="footer-wrapper">
+  <footer role="contentinfo" class="entry-wrapper">
+    
+
+<span>&copy; 2015 Alexander Fengler. Powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> using the <a href="http://mademistakes.com/so-simple/" rel="nofollow">So Simple Theme</a>.</span>
+<div class="social-icons">
+	<a href="http://twitter.com/UniFersAlex" title="Alexander Fengler on Twitter" target="_blank"><i class="fa fa-twitter-square fa-2x"></i></a>
+	<a href="http://facebook.com/AlexanderFengler" title="Alexander Fengler on Facebook" target="_blank"><i class="fa fa-facebook-square fa-2x"></i></a>
+	
+	
+	<a href="Affaeng" title="Alexander Fengler on StackExchange" target="_blank"><i class="fa fa-stack-exchange fa-2x"></i></a>
+	
+	
+	<a href="http://github.com/Alexander Fengler" title="Alexander Fengler on Github" target="_blank"><i class="fa fa-github-square fa-2x"></i></a>
+	
+  <a href="http://localhost:4000/feed.xml" title="Atom/RSS feed"><i class="fa fa-rss-square fa-2x"></i></a>
+</div><!-- /.social-icons -->
+  </footer>
+</div><!-- /.footer-wrapper -->
+
+<script type="text/javascript">
+  var BASE_URL = 'http://localhost:4000';
+</script>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="http://localhost:4000/assets/js/vendor/jquery-1.9.1.min.js"><\/script>')</script>
+<script src="http://localhost:4000/assets/js/scripts.min.js"></script>
+
+
+	        
+
+</body>
+</html>

@@ -2,13 +2,13 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
 <title type="text">Alexander Fengler</title>
 <generator uri="https://github.com/jekyll/jekyll">Jekyll</generator>
-<link rel="self" type="application/atom+xml" href="http://AlexanderFengler.github.io/feed.xml" />
-<link rel="alternate" type="text/html" href="http://AlexanderFengler.github.io" />
-<updated>2015-01-30T18:15:45-08:00</updated>
-<id>http://AlexanderFengler.github.io/</id>
+<link rel="self" type="application/atom+xml" href="http://localhost:4000/feed.xml" />
+<link rel="alternate" type="text/html" href="http://localhost:4000" />
+<updated>2015-02-08T15:17:13-08:00</updated>
+<id>http://localhost:4000/</id>
 <author>
   <name>Alexander Fengler</name>
-  <uri>http://AlexanderFengler.github.io/</uri>
+  <uri>http://localhost:4000/</uri>
   <email>fengleralexander@gmail.com</email>
 </author>
 
@@ -16,14 +16,284 @@
   
 
 <entry>
+  <title type="html"><![CDATA[Fitting Hyperbolic Discounting Functions]]></title>
+  <link rel="alternate" type="text/html" href="http://localhost:4000/neuroeconomics/K-Estimation/" />
+  <id>http://localhost:4000/neuroeconomics/K-Estimation</id>
+  <published>2015-02-07T00:00:00-08:00</published>
+  <updated>2015-02-07T00:00:00-08:00</updated>
+  <author>
+    <name>Alexander Fengler</name>
+    <uri>http://localhost:4000</uri>
+    <email>fengleralexander@gmail.com</email>
+  </author>
+  <content type="html">&lt;h1 id=&quot;tutorial-on-how-to-estimate-individual-k-values-hyperbolic-discounting&quot;&gt;Tutorial on how to estimate individual k-values (Hyperbolic Discounting)&lt;/h1&gt;
+
+&lt;p&gt;In the following I will walk you through the complete procedure necessary to estimate the individual discounting parameter when 
+assuming hyperbolic discounting. Once established, the procedure applies analogously to other base functions commonly used to describe human intertemporal decision making (namely exponential discounting, alpha-beta discounting). We closely follow the approach taken by Chabris and Laibson (2008)&lt;sup id=&quot;fnref:1&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt; in their paper &lt;em&gt;Individiual laboratory-measured discount rates predict field behavior&lt;/em&gt; published in the &lt;em&gt;Journal of Risk and Uncertainty&lt;/em&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;outline-of-the-general-procedure&quot;&gt;Outline of the general procedure&lt;/h2&gt;
+
+&lt;p&gt;The hyperbolic discounting function we use in the following is captured by the following term.&lt;/p&gt;
+
+&lt;p&gt;&lt;cite&gt; D(t) = 1 / (1 + k*t) &lt;/cite&gt;&lt;/p&gt;
+
+&lt;p&gt;This equation describes the value assigned to a monetary reward, dependent on the associated time-delay (in arbitrary units, may be days, weeks, month, years). If an individual assignes value (utility) to rewards according to this function, it transforms every possible combination of delay and payoff into an individual valuation which in turn can be ranked in terms of preference (therefore intertemporal preferences). &lt;/p&gt;
+
+&lt;p&gt;The free parameter that is utilized to describe individual differences in intertemporal discounting is the k value in the above function (alpha in Chabris and Laibson (2008)&lt;sup id=&quot;fnref:1:1&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;). &lt;/p&gt;
+
+&lt;p&gt;This parameter is usually fit using choice data, which stems from binary decisions over reward-delay combinations. The basic experimental design to extract such choices is to expose experimental subjects to a series of decision screens (or pen-and-paper questionnaire) in which they are asked to decide over a series of two option choice-sets that involve a small immediate reward (SIR) and a large delayed reward (LDR). The delays and absolute amounts of the rewards are varied so that a broad picture on the intertemporal preferences of the individual subject can be extracted from the decisions taken.&lt;/p&gt;
+
+&lt;p&gt;In this case we opt for the Kirby (1997) intertemporal discounting questionnaire, which may be extended for more precision of the k-value estimates.&lt;/p&gt;
+
+&lt;h3 id=&quot;the-data-set&quot;&gt;The Data Set&lt;/h3&gt;
+
+&lt;p&gt;Following the experimental design outlined above, we end up with a data set that contains a decision for either the SIR or LDR (defined above), for each binary choice set. Decisions for the SIR are coded as 0 and decisions for the LDR are coded as 1.  &lt;/p&gt;
+
+&lt;h3 id=&quot;fitting-the-likelihood-function&quot;&gt;Fitting the likelihood function&lt;/h3&gt;
+
+&lt;p&gt;Given our data set we can proceed to estimate the k-value that describes our subject’s set of choices best. We do this by systematically inserting k’s into the function and solving for the respective likelihood of observing our choice data. We then systematically try different k-values to find the one which maximizes the this likelihood (In reality, given programming conventions, we take the the negative of this likelihood in order to solve a &lt;em&gt;minimization&lt;/em&gt; problem). Note the underlying logic. We are trying to find the parameter values that is &lt;em&gt;most likely to generate the observed choice data&lt;/em&gt;. We quantify the goodness of fit (lack of fit) as follows. Given any particular k we calculate the probability that at a particular choice screen, an agent who behaves according to our currently tested k, would have chosen as the experimental subject did. We take the negative log of this probability. We do this for all choice-screens and sum the negative log likelihoods to end up with a final likelihood for a given k. Now we search the space of k’s to find the best fitting k.&lt;/p&gt;
+
+&lt;h3 id=&quot;issues&quot;&gt;Issues&lt;/h3&gt;
+
+&lt;p&gt;Two things need to be noted for completeness. First, there is a certain precision associated with any set of questions that form the intertemporal choice questionnaire. So it is possible that agents who actually possess differing underlying k-values, end up chosing exactly the same options, simply because the difference in k-values is so small that the current set of questions is not able to distinguish them behaviorally. It is helpful here, to ask more than the standard 27 questions included in the Kirby (1997) questionnaire. Second, following the model of Chabris and Laibson (2008)&lt;sup id=&quot;fnref:1:2&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;, we are assuming that an agent has preference shocks following a logit function. Chabris and Laibson (2008)&lt;sup id=&quot;fnref:1:3&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt; mention that their set of equations assumes &lt;em&gt;unit variance&lt;/em&gt;, an assumptino which we carry on here. Potentially, the variance implicit in the logit function can be taken as a second degree of freedom in the model. &lt;/p&gt;
+
+&lt;h2 id=&quot;coding-step-by-step&quot;&gt;Coding: Step by step&lt;/h2&gt;
+
+&lt;p&gt;So far we outlined the basic logic of our fitting procedure. In what follows I will carry you through the necessary coding steps to derive a best fitting k, given some choice data. &lt;/p&gt;
+
+&lt;h3 id=&quot;basics&quot;&gt;Basics&lt;/h3&gt;
+
+&lt;h4 id=&quot;reading-in-the-questionnaire-data&quot;&gt;Reading in the questionnaire data&lt;/h4&gt;
+
+&lt;p&gt;In the following we assume that a csv-file (“kirby.csv”) with the following columns is in our working directory. &lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Order: A column that stores the order of questions asked  &lt;/li&gt;
+  &lt;li&gt;SIR: Column storing the small immediate rewards by choice set&lt;/li&gt;
+  &lt;li&gt;LDR: Column storing the large delayed rewards by choice set&lt;/li&gt;
+  &lt;li&gt;Delay: Column storing the respecitve delays for LDR’s&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;We go ahead an read in the csv file.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-matlab&quot; data-lang=&quot;matlab&quot;&gt;&lt;span class=&quot;n&quot;&gt;qdat&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;readtable&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;kirby.csv&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h4 id=&quot;simulating-some-choices&quot;&gt;Simulating some choices&lt;/h4&gt;
+
+&lt;p&gt;Next we are going to simulate some choices, according to some agent that behaves strictly according to our hyperbolic discounting function given some arbitrary k.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-matlab&quot; data-lang=&quot;matlab&quot;&gt;&lt;span class=&quot;c&quot;&gt;% len is the length of the choice vector (number of choices to be&lt;/span&gt;
+  &lt;span class=&quot;c&quot;&gt;% predicted)&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;len&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;qdat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;LDR&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+  &lt;span class=&quot;c&quot;&gt;% We define a new column in qdat that provides the simulated choices &lt;/span&gt;
+  &lt;span class=&quot;c&quot;&gt;% 0 represents the immediate reward&lt;/span&gt;
+  &lt;span class=&quot;c&quot;&gt;% 1 represents the delayed reward&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;qdat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Choices&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;zeros&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;len&lt;/span&gt;
+     &lt;span class=&quot;n&quot;&gt;qdat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Choices&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;SimulateChoice&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;qdat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;SIR&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;qdat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;LDR&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;qdat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Delay&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Let’s take a look what exactly happens in the SimulateChoice function. As you can see below,
+we follow the simple decision rule that is outlined by Chabris and Laibson (2008)&lt;sup id=&quot;fnref:1:4&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;. An agent will only chose the delayed reward if the following condition holds true.&lt;/p&gt;
+
+&lt;p&gt;&lt;cite&gt; Y / (1 + k*t) - X &amp;gt;= 0 &lt;/cite&gt;&lt;/p&gt;
+
+&lt;p&gt;If the discounted value of the delayed reward is equal or above the imediate reward in the same choice set, we choose the delayed reward (coded as 1). Otherwise we chose the immediate reward (coded as 0).&lt;/p&gt;
+
+&lt;p&gt;The function needs as inputs,&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;the k according to which our simulated agent takes the decisions&lt;/li&gt;
+  &lt;li&gt;the SIR of the respective choice set&lt;/li&gt;
+  &lt;li&gt;the LDR of the respective choice set&lt;/li&gt;
+  &lt;li&gt;the delay associated with the LDR of the specific choice set&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;We get back a choice output which is either 0 or 1 as specified above.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-matlab&quot; data-lang=&quot;matlab&quot;&gt;&lt;span class=&quot;k&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;choice &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;SimulateChoice&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;k,sir,ldr,delay&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;% Not used for now&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;%p = exp(ldr/(1 + k*delay)) / (exp(sir) + exp(ldr/(1 + k*delay)));&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;% By Chabris/Laibson 2008&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;% If the right hand side is above 0 we choose the LDR (large delayed&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;% reward) // coded as 1&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;% IF the left hand is is below  0 we choose the SIR (small immediate&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;% reward) // coded as 0&lt;/span&gt;
+ &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;  &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ldr&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;delay&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sir&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; 
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;value&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;choice&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;choice&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Note that the simulations are simplified, in the sense that, as will be clearer below, we skip any notion of logit distribution for the simulations. In case we assume that expressed preferences stem from a logit distribution, we end up with non binary choice probabilities (any value between 0 and 1) which would change the likelihood fitting procedure.&lt;/p&gt;
+
+&lt;p&gt;As our real data will come in form of binary (either 0 or 1) coding, using our approach to simulate choices makes the code down the line directly applicable to real choice data.&lt;/p&gt;
+
+&lt;p&gt;Note however, that without further explanation, our way of simulating choices here has the effect that our k’s as solutions to our minimization problem may not (in our case actually will not) match the k used to generate our data exactly.&lt;/p&gt;
+
+&lt;h4 id=&quot;given-choices-estimate-loglikelihood-for-any-k&quot;&gt;Given Choices, estimate LogLikelihood for any k&lt;/h4&gt;
+
+&lt;p&gt;Now that we have a bunch of choices, we can try to find the hyperbolic discounting function that fits these choices best. We do this by varying the k-value of the discounting function until we find a global minimium in the negative loglikelihood function.
+Lets assume we have a function that takes in as parameters,&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;The set of real choices&lt;/li&gt;
+  &lt;li&gt;The associated SIR’s, LDR’s and delays&lt;/li&gt;
+  &lt;li&gt;The k-value we want to try as a choice of parameter&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;As an output we will get a single number, which is the likelihood. Lets call the function &lt;em&gt;GenerateLogLik&lt;/em&gt; and treat it as a blackbox for now. Such a function is also commonly called an &lt;em&gt;objective or loss function&lt;/em&gt; and our goal is it to minimize its output value. &lt;/p&gt;
+
+&lt;p&gt;We could try out a bunch of k-values by hand, however &lt;em&gt;Matlab&lt;/em&gt; offers us the &lt;em&gt;fminbnd() function&lt;/em&gt; which will vary the k-value outomatically for us to find the optimal k. We just provie a &lt;em&gt;maximum and minimum k&lt;/em&gt; to be tested and the rest will be taken care of. The function will provide us with two output numbers. &lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;The optimal k-value (parameter value that minimized current loss function)&lt;/li&gt;
+  &lt;li&gt;The value of the loss function at optimal k&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;The corresponding code looks like this.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-matlab&quot; data-lang=&quot;matlab&quot;&gt;&lt;span class=&quot;c&quot;&gt;% Run minimization to find k-value&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fminbnd&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(@&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;GenerateLogLik&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Now lets take a look at what happens in the &lt;em&gt;GenerateLogLik()&lt;/em&gt; function. Note that within the function, we refer to &lt;em&gt;struct qdat&lt;/em&gt; which is where we stored our questionnaire and choice data earlier. We assume that this struct is assigned as a &lt;em&gt;globally accessable variable&lt;/em&gt;. I will show the full script further below so that the connection of all the code snippets becomes clearer.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-matlab&quot; data-lang=&quot;matlab&quot;&gt;&lt;span class=&quot;k&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;sumloglik &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;GenerateLogLik&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;cur_k&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;&lt;/span&gt;
+&lt;span class=&quot;w&quot;&gt;    &lt;/span&gt;&lt;span class=&quot;c&quot;&gt;% Define vector that will store the probability that the model chooses&lt;/span&gt;
+    &lt;span class=&quot;c&quot;&gt;% as the participant for every choice&lt;/span&gt;
+   &lt;span class=&quot;n&quot;&gt;choiceprobabilities&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;zeros&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;qdat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Choices&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+   
+   &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;len&lt;/span&gt;
+       &lt;span class=&quot;c&quot;&gt;% load the choice probability vector for every choice&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;choiceprobabilities&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;GetPChoice&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cur_k&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;qdat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;SIR&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;qdat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;LDR&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;qdat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Delay&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;qdat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Choices&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;
+   &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+   
+   &lt;span class=&quot;c&quot;&gt;% take sum of logs and negative to be able to work within minimization&lt;/span&gt;
+   &lt;span class=&quot;c&quot;&gt;% framework&lt;/span&gt;
+   &lt;span class=&quot;n&quot;&gt;sumloglik&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;choiceprobabilities&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)));&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h4 id=&quot;putting-everything-together&quot;&gt;Putting everything together&lt;/h4&gt;
+
+&lt;p&gt;Once, all of what we discussed before as one function &lt;em&gt;findK()&lt;/em&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-matlab&quot; data-lang=&quot;matlab&quot;&gt;&lt;span class=&quot;c&quot;&gt;% Provided a certain k for simulating choices, this function return the k&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;% that minimizes errors for subjects that have preferences according to a&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;% logit destribution with unit variance&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;[x,y] &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;findK&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;k&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;%%%%%%%%%%%%%%%%%%%%%%%%%&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;% READING IN DATA %%%%%%%&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;%%%%%%%%%%%%%%%%%%%%%%%%%&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;% Initialize Questionnaire Data&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;% Four columns:&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;% 1. Order &lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;% 2. SIR (small immediate reward) &lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;% 3. LDR (large delayed reward) &lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;% 4. Delay&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;qdat&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;readtable&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;kirby.csv&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;% SIMULATING CHOICES FOR GIVEN K     %&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;% Generate / Simulate a vector of decisions for given choice set&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;% Simplest version:&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;% Solve Y / (1+k*time) - X &amp;gt;= 0 ? if bigger 0 than choose delayed&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;% otherwise immediate&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;% len is the length of the choice vector (number of choices to be&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;% predicted)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;len&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;qdat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;LDR&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;% We define a new column in qdat that provides the simulated choices &lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;% 0 represents the immediate reward&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;% 1 represents the delayed reward&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;qdat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Choices&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;zeros&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;len&lt;/span&gt;
+   &lt;span class=&quot;n&quot;&gt;qdat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Choices&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;SimulateChoice&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;qdat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;SIR&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;qdat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;LDR&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;qdat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Delay&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;%     DEFINE OBJECTIVE FUNCTION         %&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;sumloglik &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;GenerateLogLik&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;cur_k&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;&lt;/span&gt;
+&lt;span class=&quot;w&quot;&gt;    &lt;/span&gt;&lt;span class=&quot;c&quot;&gt;% Define vector that will store the probability that the model chooses&lt;/span&gt;
+    &lt;span class=&quot;c&quot;&gt;% as the participant for every choice&lt;/span&gt;
+   &lt;span class=&quot;n&quot;&gt;choiceprobabilities&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;zeros&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;qdat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Choices&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+   
+   &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;len&lt;/span&gt;
+       &lt;span class=&quot;c&quot;&gt;% load the choice probability vector for every choice&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;choiceprobabilities&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;GetPChoice&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cur_k&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;qdat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;SIR&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;qdat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;LDR&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;qdat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Delay&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;qdat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Choices&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;
+   &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+   
+   &lt;span class=&quot;c&quot;&gt;% take sum of logs and negative to be able to work within minimization&lt;/span&gt;
+   &lt;span class=&quot;c&quot;&gt;% framework&lt;/span&gt;
+   &lt;span class=&quot;n&quot;&gt;sumloglik&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;choiceprobabilities&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)));&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;% RECOVER K WHEN HAVING SET OF CHOICES %&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;% Run minimization to find k-value&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fminbnd&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(@&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;GenerateLogLik&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;further-notes-on-k-precision&quot;&gt;Further notes on k-precision&lt;/h3&gt;
+
+&lt;p&gt;Now that we know how to estimate the optimal k-value for a given choice data set, we can follow up with some further considerations on the realtionship between the questionnaire utilized and the precision of the optimal k-values, given binary choice data.
+The following code snippet uses the function &lt;em&gt;findK()&lt;/em&gt; defined above and plots the optimal k-values found, as a function of the k-values used to simulate the choice set. &lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-matlab&quot; data-lang=&quot;matlab&quot;&gt;&lt;span class=&quot;n&quot;&gt;ks&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.001&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.001&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.03&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;optimk&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;zeros&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ks&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ks&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;optimk&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;findK&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ks&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;plot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ks&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;optimk&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Looking at the graph that this script produces, note that it follows what looks like a step function. This illustrates the insensitivity of the simple 27 item Kirby (1997) questionnaire, to small changes in k-values. &lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/blog_images/2015-02-07-K-Estimation/kfitted_vs_simulated.png&quot; alt=&quot;kfitted_vs_simulated&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Another way to show this, is by simply looking at the generated choices when simulating with varying k-values. It can easily be seen that small changes in k simply do not change any choice in the set and therefore will be treated as stemming from an equivalent agent when we try to find the best fitting k with our likelihood method.&lt;/p&gt;
+
+&lt;p&gt;Changing the underlying questionnaire will have an impact on this sensitivity.&lt;/p&gt;
+
+&lt;h3 id=&quot;where-to-find-all-the-codehttpsgithubcomalexanderfenglerhyperbolicdiscountingmatlab&quot;&gt;Where to find all the &lt;a href=&quot;https://github.com/AlexanderFengler/hyperbolic_discounting_Matlab&quot;&gt;code&lt;/a&gt;?&lt;/h3&gt;
+&lt;p&gt;All code is uploaded &lt;a href=&quot;https://github.com/AlexanderFengler/hyperbolic_discounting_Matlab&quot;&gt;&lt;em&gt;here&lt;/em&gt;&lt;/a&gt;. You can simply download the folder and add it to your path in Matlab.&lt;/p&gt;
+
+&lt;div class=&quot;footnotes&quot;&gt;
+  &lt;ol&gt;
+    &lt;li id=&quot;fn:1&quot;&gt;
+      &lt;p&gt;&lt;a href=&quot;http://www.nber.org/papers/w14270.pdf&quot;&gt;Chabris C., Laibson D. (2008). Individual laboratory-measured discount rates predict field behavior. &lt;em&gt;J Risk Uncertain&lt;/em&gt;, &lt;em&gt;37&lt;/em&gt;,237-269&lt;/a&gt; &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt; &lt;a href=&quot;#fnref:1:1&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;sup&gt;2&lt;/sup&gt;&lt;/a&gt; &lt;a href=&quot;#fnref:1:2&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;sup&gt;3&lt;/sup&gt;&lt;/a&gt; &lt;a href=&quot;#fnref:1:3&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;sup&gt;4&lt;/sup&gt;&lt;/a&gt; &lt;a href=&quot;#fnref:1:4&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;sup&gt;5&lt;/sup&gt;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/div&gt;
+
+  &lt;p&gt;&lt;a href=&quot;http://localhost:4000/neuroeconomics/K-Estimation/&quot;&gt;Fitting Hyperbolic Discounting Functions&lt;/a&gt; was originally published by Alexander Fengler at &lt;a href=&quot;http://localhost:4000&quot;&gt;Alexander Fengler&lt;/a&gt; on February 07, 2015.&lt;/p&gt;</content>
+</entry>
+
+
+  
+
+<entry>
   <title type="html"><![CDATA[DDM: Does timestep size affect noise parameter?]]></title>
-  <link rel="alternate" type="text/html" href="http://AlexanderFengler.github.io/neuroeconomics/DDM-Timestep-Noise-Behavior/" />
-  <id>http://AlexanderFengler.github.io/neuroeconomics/DDM-Timestep-Noise-Behavior</id>
+  <link rel="alternate" type="text/html" href="http://localhost:4000/neuroeconomics/DDM-Timestep-Noise-Behavior/" />
+  <id>http://localhost:4000/neuroeconomics/DDM-Timestep-Noise-Behavior</id>
   <published>2015-01-30T00:00:00-08:00</published>
   <updated>2015-01-30T00:00:00-08:00</updated>
   <author>
     <name>Alexander Fengler</name>
-    <uri>http://AlexanderFengler.github.io</uri>
+    <uri>http://localhost:4000</uri>
     <email>fengleralexander@gmail.com</email>
   </author>
   <content type="html">&lt;p&gt;My daily work in the laboratory deals with fitting drift diffusion models to behavioral data (reaction times, decisions) from simple choice experiments. While we also work with more elaborate verisons of the model for which this does not necessarily hold, the standard drift diffusion model has two key parameters. &lt;/p&gt;
@@ -191,7 +461,7 @@ p.2&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;You can find all code and the markdown file of this post in this &lt;a href=&quot;https://github.com/AlexanderFengler/ddm_noise_parameter_by_steps&quot;&gt;github repository&lt;/a&gt;.&lt;/p&gt;
 
-  &lt;p&gt;&lt;a href=&quot;http://AlexanderFengler.github.io/neuroeconomics/DDM-Timestep-Noise-Behavior/&quot;&gt;DDM: Does timestep size affect noise parameter?&lt;/a&gt; was originally published by Alexander Fengler at &lt;a href=&quot;http://AlexanderFengler.github.io&quot;&gt;Alexander Fengler&lt;/a&gt; on January 30, 2015.&lt;/p&gt;</content>
+  &lt;p&gt;&lt;a href=&quot;http://localhost:4000/neuroeconomics/DDM-Timestep-Noise-Behavior/&quot;&gt;DDM: Does timestep size affect noise parameter?&lt;/a&gt; was originally published by Alexander Fengler at &lt;a href=&quot;http://localhost:4000&quot;&gt;Alexander Fengler&lt;/a&gt; on January 30, 2015.&lt;/p&gt;</content>
 </entry>
 
 
@@ -199,13 +469,13 @@ p.2&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 <entry>
   <title type="html"><![CDATA[Override Author Byline Test Post]]></title>
-  <link rel="alternate" type="text/html" href="http://AlexanderFengler.github.io/statistics/author-override/" />
-  <id>http://AlexanderFengler.github.io/statistics/author-override</id>
+  <link rel="alternate" type="text/html" href="http://localhost:4000/statistics/author-override/" />
+  <id>http://localhost:4000/statistics/author-override</id>
   <published>2014-06-19T00:00:00-07:00</published>
   <updated>2014-06-19T00:00:00-07:00</updated>
   <author>
     <name>Alexander Fengler</name>
-    <uri>http://AlexanderFengler.github.io</uri>
+    <uri>http://localhost:4000</uri>
     <email>fengleralexander@gmail.com</email>
   </author>
   <content type="html">&lt;p&gt;For those of you who may have content written by multiple authors on your site you can now assign different authors to each post if desired.&lt;/p&gt;
@@ -239,7 +509,7 @@ p.2&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-yaml&quot; data-lang=&quot;yaml&quot;&gt;&lt;span class=&quot;l-Scalar-Plain&quot;&gt;author&lt;/span&gt;&lt;span class=&quot;p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;l-Scalar-Plain&quot;&gt;billy_rick&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-  &lt;p&gt;&lt;a href=&quot;http://AlexanderFengler.github.io/statistics/author-override/&quot;&gt;Override Author Byline Test Post&lt;/a&gt; was originally published by Alexander Fengler at &lt;a href=&quot;http://AlexanderFengler.github.io&quot;&gt;Alexander Fengler&lt;/a&gt; on June 19, 2014.&lt;/p&gt;</content>
+  &lt;p&gt;&lt;a href=&quot;http://localhost:4000/statistics/author-override/&quot;&gt;Override Author Byline Test Post&lt;/a&gt; was originally published by Alexander Fengler at &lt;a href=&quot;http://localhost:4000&quot;&gt;Alexander Fengler&lt;/a&gt; on June 19, 2014.&lt;/p&gt;</content>
 </entry>
 
 
@@ -247,13 +517,13 @@ p.2&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 <entry>
   <title type="html"><![CDATA[Syntax Highlighting Post]]></title>
-  <link rel="alternate" type="text/html" href="http://AlexanderFengler.github.io/statistics/code-highlighting-post/" />
-  <id>http://AlexanderFengler.github.io/statistics/code-highlighting-post</id>
+  <link rel="alternate" type="text/html" href="http://localhost:4000/statistics/code-highlighting-post/" />
+  <id>http://localhost:4000/statistics/code-highlighting-post</id>
   <published>2013-08-16T00:00:00-07:00</published>
   <updated>2013-08-16T00:00:00-07:00</updated>
   <author>
     <name>Alexander Fengler</name>
-    <uri>http://AlexanderFengler.github.io</uri>
+    <uri>http://localhost:4000</uri>
     <email>fengleralexander@gmail.com</email>
   </author>
   <content type="html">&lt;p&gt;Syntax highlighting is a feature that displays source code, in different colors and fonts according to the category of terms. This feature facilitates writing in a structured language such as a programming language or a markup language as both structures and syntax errors are visually distinct. Highlighting does not affect the meaning of the text itself; it is intended only for human readers.&lt;sup id=&quot;fnref:1&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;&lt;/p&gt;
@@ -354,7 +624,7 @@ end
   &lt;/ol&gt;
 &lt;/div&gt;
 
-  &lt;p&gt;&lt;a href=&quot;http://AlexanderFengler.github.io/statistics/code-highlighting-post/&quot;&gt;Syntax Highlighting Post&lt;/a&gt; was originally published by Alexander Fengler at &lt;a href=&quot;http://AlexanderFengler.github.io&quot;&gt;Alexander Fengler&lt;/a&gt; on August 16, 2013.&lt;/p&gt;</content>
+  &lt;p&gt;&lt;a href=&quot;http://localhost:4000/statistics/code-highlighting-post/&quot;&gt;Syntax Highlighting Post&lt;/a&gt; was originally published by Alexander Fengler at &lt;a href=&quot;http://localhost:4000&quot;&gt;Alexander Fengler&lt;/a&gt; on August 16, 2013.&lt;/p&gt;</content>
 </entry>
 
 
@@ -362,18 +632,18 @@ end
 
 <entry>
   <title type="html"><![CDATA[Sample Link Post]]></title>
-  <link rel="alternate" type="text/html" href="http://AlexanderFengler.github.io/statistics/sample-link-post/" />
-  <id>http://AlexanderFengler.github.io/statistics/sample-link-post</id>
+  <link rel="alternate" type="text/html" href="http://localhost:4000/statistics/sample-link-post/" />
+  <id>http://localhost:4000/statistics/sample-link-post</id>
   <published>2013-08-12T00:00:00-07:00</published>
   <updated>2013-08-12T00:00:00-07:00</updated>
   <author>
     <name>Alexander Fengler</name>
-    <uri>http://AlexanderFengler.github.io</uri>
+    <uri>http://localhost:4000</uri>
     <email>fengleralexander@gmail.com</email>
   </author>
   <content type="html">&lt;p&gt;So Simple Theme now supports &lt;strong&gt;link posts&lt;/strong&gt;, made famous by John Gruber. To activate just add &lt;code&gt;link: http://url-you-want-linked&lt;/code&gt; to the post’s YAML front matter and you’re done.&lt;/p&gt;
 
-  &lt;p&gt;&lt;a href=&quot;http://AlexanderFengler.github.io/statistics/sample-link-post/&quot;&gt;Sample Link Post&lt;/a&gt; was originally published by Alexander Fengler at &lt;a href=&quot;http://AlexanderFengler.github.io&quot;&gt;Alexander Fengler&lt;/a&gt; on August 12, 2013.&lt;/p&gt;</content>
+  &lt;p&gt;&lt;a href=&quot;http://localhost:4000/statistics/sample-link-post/&quot;&gt;Sample Link Post&lt;/a&gt; was originally published by Alexander Fengler at &lt;a href=&quot;http://localhost:4000&quot;&gt;Alexander Fengler&lt;/a&gt; on August 12, 2013.&lt;/p&gt;</content>
 </entry>
 
 
@@ -381,13 +651,13 @@ end
 
 <entry>
   <title type="html"><![CDATA[A Post with a Video]]></title>
-  <link rel="alternate" type="text/html" href="http://AlexanderFengler.github.io/statistics/video-post/" />
-  <id>http://AlexanderFengler.github.io/statistics/video-post</id>
+  <link rel="alternate" type="text/html" href="http://localhost:4000/statistics/video-post/" />
+  <id>http://localhost:4000/statistics/video-post</id>
   <published>2013-06-25T00:00:00-07:00</published>
   <updated>2013-06-25T00:00:00-07:00</updated>
   <author>
     <name>Alexander Fengler</name>
-    <uri>http://AlexanderFengler.github.io</uri>
+    <uri>http://localhost:4000</uri>
     <email>fengleralexander@gmail.com</email>
   </author>
   <content type="html">&lt;iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;//www.youtube.com/embed/pdSp4Y4GOQs&quot; frameborder=&quot;0&quot;&gt; &lt;/iframe&gt;
@@ -402,7 +672,7 @@ end
 
 &lt;iframe src=&quot;//player.vimeo.com/video/98146708?title=0&amp;amp;byline=0&quot; width=&quot;500&quot; height=&quot;281&quot; frameborder=&quot;0&quot;&gt; &lt;/iframe&gt;
 
-  &lt;p&gt;&lt;a href=&quot;http://AlexanderFengler.github.io/statistics/video-post/&quot;&gt;A Post with a Video&lt;/a&gt; was originally published by Alexander Fengler at &lt;a href=&quot;http://AlexanderFengler.github.io&quot;&gt;Alexander Fengler&lt;/a&gt; on June 25, 2013.&lt;/p&gt;</content>
+  &lt;p&gt;&lt;a href=&quot;http://localhost:4000/statistics/video-post/&quot;&gt;A Post with a Video&lt;/a&gt; was originally published by Alexander Fengler at &lt;a href=&quot;http://localhost:4000&quot;&gt;Alexander Fengler&lt;/a&gt; on June 25, 2013.&lt;/p&gt;</content>
 </entry>
 
 
@@ -410,14 +680,14 @@ end
 
 <entry>
   <title type="html"><![CDATA[Post with Large Feature Image and Text]]></title>
-  <link rel="alternate" type="text/html" href="http://AlexanderFengler.github.io/statistics/readability-feature-post/" />
-  <id>http://AlexanderFengler.github.io/statistics/readability-feature-post</id>
+  <link rel="alternate" type="text/html" href="http://localhost:4000/statistics/readability-feature-post/" />
+  <id>http://localhost:4000/statistics/readability-feature-post</id>
   <updated>2013-06-30T00:00:00-00:00</updated>
   <published>2013-05-23T00:00:00-07:00</published>
   
   <author>
     <name>Alexander Fengler</name>
-    <uri>http://AlexanderFengler.github.io</uri>
+    <uri>http://localhost:4000</uri>
     <email>fengleralexander@gmail.com</email>
   </author>
   <content type="html">&lt;p&gt;This is a sample post with a large feature image up top and tons of text. Odio ad blue bottle vinyl, 90’s narwhal commodo bitters pour-over nostrud. Ugh est hashtag in, fingerstache adipisicing laboris esse Pinterest shabby chic Portland. Shoreditch bicycle rights anim, flexitarian laboris put a bird on it vinyl cupidatat narwhal. Hashtag artisan skateboard, flannel Bushwick nesciunt salvia aute fixie do plaid post-ironic dolor McSweeney’s. Cliche pour-over chambray nulla four loko skateboard sapiente hashtag.&lt;/p&gt;
@@ -461,7 +731,7 @@ end
 
 &lt;p&gt;Aliquip enim artisan dolor post-ironic. Pug tote bag Marfa, deserunt pour-over Portland wolf eu odio intelligentsia american apparel ugh ea. Sunt viral et, 3 wolf moon gastropub pug id. Id fashion axe est typewriter, mlkshk Portland art party aute brunch. Sint pork belly Cosby sweater, deep v mumblecore kitsch american apparel. Try-hard direct trade tumblr sint skateboard. Adipisicing bitters excepteur biodiesel, pickled gastropub aute veniam.&lt;/p&gt;
 
-  &lt;p&gt;&lt;a href=&quot;http://AlexanderFengler.github.io/statistics/readability-feature-post/&quot;&gt;Post with Large Feature Image and Text&lt;/a&gt; was originally published by Alexander Fengler at &lt;a href=&quot;http://AlexanderFengler.github.io&quot;&gt;Alexander Fengler&lt;/a&gt; on May 23, 2013.&lt;/p&gt;</content>
+  &lt;p&gt;&lt;a href=&quot;http://localhost:4000/statistics/readability-feature-post/&quot;&gt;Post with Large Feature Image and Text&lt;/a&gt; was originally published by Alexander Fengler at &lt;a href=&quot;http://localhost:4000&quot;&gt;Alexander Fengler&lt;/a&gt; on May 23, 2013.&lt;/p&gt;</content>
 </entry>
 
 
@@ -469,13 +739,13 @@ end
 
 <entry>
   <title type="html"><![CDATA[A Post with Images]]></title>
-  <link rel="alternate" type="text/html" href="http://AlexanderFengler.github.io/statistics/sample-post-images/" />
-  <id>http://AlexanderFengler.github.io/statistics/sample-post-images</id>
+  <link rel="alternate" type="text/html" href="http://localhost:4000/statistics/sample-post-images/" />
+  <id>http://localhost:4000/statistics/sample-post-images</id>
   <published>2013-05-22T00:00:00-07:00</published>
   <updated>2013-05-22T00:00:00-07:00</updated>
   <author>
     <name>Alexander Fengler</name>
-    <uri>http://AlexanderFengler.github.io</uri>
+    <uri>http://localhost:4000</uri>
     <email>fengleralexander@gmail.com</email>
   </author>
   <content type="html">&lt;p&gt;Here are some examples of what a post with images might look like. If you want to display two or three images next to each other responsively use &lt;code&gt;figure&lt;/code&gt; with the appropriate &lt;code&gt;class&lt;/code&gt;. Each instance of &lt;code&gt;figure&lt;/code&gt; is auto-numbered and displayed in the caption.&lt;/p&gt;
@@ -532,7 +802,7 @@ end
 	&lt;figcaption&gt;Three images.&lt;/figcaption&gt;
 &lt;/figure&gt;
 
-  &lt;p&gt;&lt;a href=&quot;http://AlexanderFengler.github.io/statistics/sample-post-images/&quot;&gt;A Post with Images&lt;/a&gt; was originally published by Alexander Fengler at &lt;a href=&quot;http://AlexanderFengler.github.io&quot;&gt;Alexander Fengler&lt;/a&gt; on May 22, 2013.&lt;/p&gt;</content>
+  &lt;p&gt;&lt;a href=&quot;http://localhost:4000/statistics/sample-post-images/&quot;&gt;A Post with Images&lt;/a&gt; was originally published by Alexander Fengler at &lt;a href=&quot;http://localhost:4000&quot;&gt;Alexander Fengler&lt;/a&gt; on May 22, 2013.&lt;/p&gt;</content>
 </entry>
 
 
@@ -540,13 +810,13 @@ end
 
 <entry>
   <title type="html"><![CDATA[Testing Readability with a Bunch of Text]]></title>
-  <link rel="alternate" type="text/html" href="http://AlexanderFengler.github.io/statistics/readability-post/" />
-  <id>http://AlexanderFengler.github.io/statistics/readability-post</id>
+  <link rel="alternate" type="text/html" href="http://localhost:4000/statistics/readability-post/" />
+  <id>http://localhost:4000/statistics/readability-post</id>
   <published>2012-05-22T00:00:00-07:00</published>
   <updated>2012-05-22T00:00:00-07:00</updated>
   <author>
     <name>Alexander Fengler</name>
-    <uri>http://AlexanderFengler.github.io</uri>
+    <uri>http://localhost:4000</uri>
     <email>fengleralexander@gmail.com</email>
   </author>
   <content type="html">&lt;p&gt;Portland in shoreditch Vice, labore typewriter pariatur hoodie fap sartorial Austin. Pinterest literally occupy Schlitz forage. Odio ad blue bottle vinyl, 90’s narwhal commodo bitters pour-over nostrud. Ugh est hashtag in, fingerstache adipisicing laboris esse Pinterest shabby chic Portland. Shoreditch bicycle rights anim, flexitarian laboris put a bird on it vinyl cupidatat narwhal. Hashtag artisan skateboard, flannel Bushwick nesciunt salvia aute fixie do plaid post-ironic dolor McSweeney’s. Cliche pour-over chambray nulla four loko skateboard sapiente hashtag.&lt;/p&gt;
@@ -590,7 +860,7 @@ end
 
 &lt;p&gt;Aliquip enim artisan dolor post-ironic. Pug tote bag Marfa, deserunt pour-over Portland wolf eu odio intelligentsia american apparel ugh ea. Sunt viral et, 3 wolf moon gastropub pug id. Id fashion axe est typewriter, mlkshk Portland art party aute brunch. Sint pork belly Cosby sweater, deep v mumblecore kitsch american apparel. Try-hard direct trade tumblr sint skateboard. Adipisicing bitters excepteur biodiesel, pickled gastropub aute veniam.&lt;/p&gt;
 
-  &lt;p&gt;&lt;a href=&quot;http://AlexanderFengler.github.io/statistics/readability-post/&quot;&gt;Testing Readability with a Bunch of Text&lt;/a&gt; was originally published by Alexander Fengler at &lt;a href=&quot;http://AlexanderFengler.github.io&quot;&gt;Alexander Fengler&lt;/a&gt; on May 22, 2012.&lt;/p&gt;</content>
+  &lt;p&gt;&lt;a href=&quot;http://localhost:4000/statistics/readability-post/&quot;&gt;Testing Readability with a Bunch of Text&lt;/a&gt; was originally published by Alexander Fengler at &lt;a href=&quot;http://localhost:4000&quot;&gt;Alexander Fengler&lt;/a&gt; on May 22, 2012.&lt;/p&gt;</content>
 </entry>
 
 
@@ -598,14 +868,14 @@ end
 
 <entry>
   <title type="html"><![CDATA[Sample Post]]></title>
-  <link rel="alternate" type="text/html" href="http://AlexanderFengler.github.io/statistics/sample-post/" />
-  <id>http://AlexanderFengler.github.io/statistics/sample-post</id>
+  <link rel="alternate" type="text/html" href="http://localhost:4000/statistics/sample-post/" />
+  <id>http://localhost:4000/statistics/sample-post</id>
   <updated>2013-05-31T00:00:00-00:00</updated>
   <published>2011-03-10T00:00:00-08:00</published>
   
   <author>
     <name>Alexander Fengler</name>
-    <uri>http://AlexanderFengler.github.io</uri>
+    <uri>http://localhost:4000</uri>
     <email>fengleralexander@gmail.com</email>
   </author>
   <content type="html">&lt;p&gt;Below is just about everything you’ll need to style in the theme. Check the source code to see the many embedded elements within paragraphs.&lt;/p&gt;
@@ -626,7 +896,7 @@ end
 
 &lt;p&gt;Lorem ipsum dolor sit amet, test link adipiscing elit. &lt;strong&gt;This is strong&lt;/strong&gt;. Nullam dignissim convallis est. Quisque aliquam.&lt;/p&gt;
 
-&lt;p class=&quot;pull-right&quot;&gt;&lt;img src=&quot;http://AlexanderFengler.github.io/images/3953273590_704e3899d5_m.jpg&quot; alt=&quot;Smithsonian Image&quot; /&gt;&lt;/p&gt;
+&lt;p class=&quot;pull-right&quot;&gt;&lt;img src=&quot;http://localhost:4000/images/3953273590_704e3899d5_m.jpg&quot; alt=&quot;Smithsonian Image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;em&gt;This is emphasized&lt;/em&gt;. Donec faucibus. Nunc iaculis suscipit dui. 53 = 125. Water is H&lt;sub&gt;2&lt;/sub&gt;O. Nam sit amet sem. Aliquam libero nisi, imperdiet at, tincidunt nec, gravida vehicula, nisl. The New York Times &lt;cite&gt;(That’s a citation)&lt;/cite&gt;. &lt;u&gt;Underline&lt;/u&gt;. Maecenas ornare tortor. Donec sed tellus eget sapien fringilla nonummy. Mauris a ante. Suspendisse quam sem, consequat at, commodo vitae, feugiat in, nunc. Morbi imperdiet augue quis tellus.&lt;/p&gt;
 
@@ -727,7 +997,7 @@ end
 
 &lt;div&gt;&lt;a href=&quot;http://mademistakes.com&quot; class=&quot;btn&quot;&gt;This is a button&lt;/a&gt;&lt;/div&gt;
 
-  &lt;p&gt;&lt;a href=&quot;http://AlexanderFengler.github.io/statistics/sample-post/&quot;&gt;Sample Post&lt;/a&gt; was originally published by Alexander Fengler at &lt;a href=&quot;http://AlexanderFengler.github.io&quot;&gt;Alexander Fengler&lt;/a&gt; on March 10, 2011.&lt;/p&gt;</content>
+  &lt;p&gt;&lt;a href=&quot;http://localhost:4000/statistics/sample-post/&quot;&gt;Sample Post&lt;/a&gt; was originally published by Alexander Fengler at &lt;a href=&quot;http://localhost:4000&quot;&gt;Alexander Fengler&lt;/a&gt; on March 10, 2011.&lt;/p&gt;</content>
 </entry>
 
 </feed>

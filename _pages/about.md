@@ -3,9 +3,13 @@ layout: page
 title: About Me
 permalink: /about/
 ---
-<a href="{{ site.baseurl }}/" class="sketchy"> <!--class="site-avatar"> -->
-<img src="{{site.baseurl}}/images/webpage_af_redjacket.png" alt = "Frontal shot"> 
-</a>
+<!-- <a href="{{ site.baseurl }}/" class="sketchy"> class="site-avatar"> -->
+<!-- <div class="basic-photo"> -->
+<img src="{{site.baseurl}}/images/webpage_af_redjacket.png" 
+     alt = "Frontal shot"
+     width= "70%"> 
+<!-- </div>     -->
+<!-- </a> -->
 
 Hi, I am Alex and this is my online home. 
 

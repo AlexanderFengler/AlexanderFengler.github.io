@@ -1,16 +1,16 @@
 ---
 layout: page
-title: 
+title: Code
 permalink: /code/
 ---
 
-# Inference for Sequential Sampling Models
+## Inference for Sequential Sampling Models
 
 <img src="{{site.baseurl}}/images/weibull.gif" width="500" height="300" alt="SSM with Weibull CDF bound">
 
 I link to a few more recent projects of mine, which were part of my PhD research. 
 
-## Rapid Simulation of Sequential Sampling Models (ssms)
+### Rapid Simulation of Sequential Sampling Models (ssms)
 
 This is a lightweight package to forward simulate a variety of *Sequential Sampling Models* of interest
 in Cognitive Science. To computational efficiency, the simulators are written in <a href="https://cython.org/">Cython</a>.
@@ -27,7 +27,7 @@ pip install git+https://github.com/AlexanderFengler/ssm_simulators@main
 <button class="black-button"><a href="https://github.com/AlexanderFengler/ssm_simulators">ssms</a></button>
 </div>
 
-## Train Likelihood Approximation Networks (LANFactory)
+### Train Likelihood Approximation Networks (LANFactory)
 
 Train <a href="https://elifesciences.org/articles/65074">Likelihood Approximation Networks</a> (LANs) with this leight weight package.
 The package asks for training data in a specific format which the ssms package above provides. 
@@ -41,7 +41,7 @@ pip install git+https://github.com/AlexanderFengler/LANfactory@main
 <button class="black-button"><a href="https://github.com/AlexanderFengler/LANfactory">lanfactory</a></button>
 </div>
 
-## HDDM
+### HDDM
 
 <a href="https://github.com/hddm-devs/hddm">HDDM</a> is a python toolbox for Bayesian hierarchical inference of cognitive process models.
 Originally developed with specific focus on the <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2474742/">Diffusion Decision Model</a>, 
@@ -57,7 +57,7 @@ pip install git+https://github.com/hddm-devs/hddm
 <button class="black-button"><a href="https://github.com/hddm-devs/hddm">lanfactory</a></button>
 </div>
 
-## Tutorials
+### Tutorials
 
 The `HDDM` package comes with various tutorials, especially concerning the recent 
 <a href="https://direct.mit.edu/jocn/article/34/10/1780/112585/Beyond-Drift-Diffusion-Models-Fitting-a-Broad">LAN extension</a>. 

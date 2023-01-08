@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Alexander Fengler – A saved space</title>
+    <!-- Begin Jekyll SEO tag v2.8.0 -->
+<meta name="generator" content="Jekyll v4.3.1" />
+<meta property="og:title" content="Alexander Fengler" />
+<meta name="author" content="Alexander Fengler" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="A saved space" />
+<meta property="og:description" content="A saved space" />
+<link rel="canonical" href="http://localhost:4000/code/" />
+<meta property="og:url" content="http://localhost:4000/code/" />
+<meta property="og:site_name" content="Alexander Fengler" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Alexander Fengler" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","author":{"@type":"Person","name":"Alexander Fengler"},"description":"A saved space","headline":"Alexander Fengler","url":"http://localhost:4000/code/"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <meta content='text/html; charset=utf-8' http-equiv='Content-Type'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
+
+
+<meta property="og:description" content="A saved space" />
+
+<meta name="author" content="Alexander Fengler" />
+
+
+
+
+<meta property="og:image" content="http://localhost:4000/images/af_face.png"/>
+<meta property="twitter:image" content="http://localhost:4000/images/af_face.png"/>
+
+
+
+    <link rel="stylesheet" type="text/css" href="/assets/style.css" />
+    <link rel="alternate" type="application/rss+xml" title="Alexander Fengler - A saved space" href="/feed.xml" />
+    <link rel="canonical" href="http://localhost:4000/code/" />
+
+    <meta name="theme-color" content="#000000">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+    
+
+  </head>
+
+  <body>
+    <div id="bar"></div>
+    <div class="wrapper-container">
+      <div class="wrapper-masthead">
+        <div class="container">
+          <header class="masthead clearfix">
+            <a href="/" class="site-avatar"> <!--class="site-avatar"> -->
+              <img src="/images/af_face.png" alt=""/>
+            </a>
+
+            <div class="site-info">
+              <h1 class="site-name"><a href="/">Alexander Fengler</a></h1>
+              <p class="site-description">A saved space</p> 
+            </div>
+
+            <nav>
+              <a href="/about">About Me</a>
+              <!-- <a href="/getting-started">Getting Started</a> -->
+              <a href="/code">Code</a>
+              <a href="/">Blog</a>
+              <a href="/search">Search</a>
+              <a href="/archive">Archive</a>
+            </nav>
+          </header>
+        </div>
+      </div>
+
+      <div class="wrapper-main">
+        <div id="main" role="main" class="container">
+          <article class="page">
+
+  <h1></h1>
+
+  <div class="entry">
+    <h1 id="inference-for-sequential-sampling-models">Inference for Sequential Sampling Models</h1>
+
+<p><img src="/images/weibull.gif" width="500" height="300" alt="SSM with Weibull CDF bound" /></p>
+
+<p>I link to a few more recent projects of mine, which were part of my PhD research.</p>
+
+<h2 id="rapid-simulation-of-sequential-sampling-models-ssms">Rapid Simulation of Sequential Sampling Models (ssms)</h2>
+
+<p>This is a lightweight package to forward simulate a variety of <em>Sequential Sampling Models</em> of interest
+in Cognitive Science. To computational efficiency, the simulators are written in <a href="https://cython.org/">Cython</a>.
+The package integrates nicely with the LANFactory package below, for which we ssms can provide training data in the 
+expected format.
+To install <code class="language-plaintext highlighter-rouge">ssms</code> type the following into your console:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip <span class="nb">install </span>git+https://github.com/AlexanderFengler/ssm_simulators@main
+</code></pre></div></div>
+
+<div class="text-center">
+<button class="black-button"><a href="https://github.com/AlexanderFengler/ssm_simulators">ssms</a></button>
+</div>
+
+<h2 id="train-likelihood-approximation-networks-lanfactory">Train Likelihood Approximation Networks (LANFactory)</h2>
+
+<p>Train <a href="https://elifesciences.org/articles/65074">Likelihood Approximation Networks</a> (LANs) with this leight weight package.
+The package asks for training data in a specific format which the ssms package above provides. 
+You can of course provide your own training data instead.
+To install <code class="language-plaintext highlighter-rouge">lanfactory</code> type the following into your console:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip <span class="nb">install </span>git+https://github.com/AlexanderFengler/LANfactory@main
+</code></pre></div></div>
+<div class="text-center">
+<button class="black-button"><a href="https://github.com/AlexanderFengler/LANfactory">lanfactory</a></button>
+</div>
+
+<h2 id="hddm">HDDM</h2>
+
+<p><a href="https://github.com/hddm-devs/hddm">HDDM</a> is a python toolbox for Bayesian hierarchical inference of cognitive process models.
+Originally developed with specific focus on the <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2474742/">Diffusion Decision Model</a>, 
+it has since been extended to incorporate a whole host of other Sequential Sampling Models. These extensions make use of 
+<a href="https://elifesciences.org/articles/65074">Likelihood Approximation Networks</a>. 
+I was mainly responsible for these extensions and continue to work on maintaining the project.
+To install <code class="language-plaintext highlighter-rouge">HDDM</code> type the following into your console:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip <span class="nb">install </span>git+https://github.com/hddm-devs/hddm
+</code></pre></div></div>
+<div class="text-center">
+<button class="black-button"><a href="https://github.com/hddm-devs/hddm">lanfactory</a></button>
+</div>
+
+<h2 id="tutorials">Tutorials</h2>
+
+<p>The <code class="language-plaintext highlighter-rouge">HDDM</code> package comes with various tutorials, especially concerning the recent 
+<a href="https://direct.mit.edu/jocn/article/34/10/1780/112585/Beyond-Drift-Diffusion-Models-Fitting-a-Broad">LAN extension</a>. 
+Here are a few tutorials I gave on the topic:</p>
+
+<div class="text-center">
+<button class="black-button">
+<a href="https://github.com/AlexanderFengler/hddm_workshop">Basic HDDM Tutorial</a>
+</button>
+</div>
+
+<div class="text-center">
+<button class="black-button">
+<a href="https://github.com/AlexanderFengler/hddmnn_tutorial">HDDM LAN Extension</a>
+</button>
+</div>
+
+  </div>
+</article>
+
+        </div>
+      </div>
+
+      <div class="wrapper-footer">
+        <div class="container">
+          <footer class="footer">
+            
+<a href="mailto:fengleralexander@gmail.com"><i class="svg-icon email"></i></a>
+
+
+<a href="https://github.com/AlexanderFengler"><i class="svg-icon github"></i></a>
+
+<a href="https://www.linkedin.com/in/alexander-fengler-89560b74"><i class="svg-icon linkedin"></i></a>
+
+
+<a href="https://www.twitter.com/UniFersAlex"><i class="svg-icon twitter"></i></a>
+
+
+
+
+
+
+          </footer>
+        </div>
+      </div>
+    </div>
+
+    
+	<!-- Google Analytics -->
+	<script>
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+		ga('create', 'UA-43339302-11', 'auto');
+		ga('send', 'pageview', {
+		  'page': '/code/',
+		  'title': ''
+		});
+	</script>
+	<!-- End Google Analytics -->
+
+
+  </body>
+</html>

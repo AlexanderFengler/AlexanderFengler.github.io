@@ -2,6 +2,7 @@
 layout: post
 title:  Likelihood Approximation Networks
 categories: [LFI, SBI, DDM, SSM]
+comments: true
 excerpt: Likelihood Approximation Networks for fast Simulation Based Inference in Cognitive Process Models
 ---
 

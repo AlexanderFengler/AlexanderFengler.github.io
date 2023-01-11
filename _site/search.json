@@ -1,7 +1,6 @@
 [
   
     {
-
       "title"    : "Likelihood Approximation Networks",
       "url"      : "/likelihood-approximation-networks/",
       "category" : "LFI, SBI, DDM, SSM",
@@ -9,7 +8,6 @@
     } ,
   
     {
-
       "title"    : "Theme Info and Credits (Reverie)",
       "url"      : "/introducing-reverie-jekyll-theme/",
       "category" : "Miscellaneous, Jekyll",

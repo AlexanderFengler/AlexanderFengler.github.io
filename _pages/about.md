@@ -5,9 +5,10 @@ permalink: /about/
 ---
 <!-- <a href="{{ site.baseurl }}/" class="sketchy"> class="site-avatar"> -->
 <!-- <div class="basic-photo"> -->
-<img src="{{site.baseurl}}/images/webpage_af_redjacket.png" 
+<img src="{{site.baseurl}}/images/webpage_af_redjacket_soft.png" 
      alt = "Frontal shot"
-     width= "70%"> 
+     width= "70%"
+     > 
 <!-- </div>     -->
 <!-- </a> -->
 

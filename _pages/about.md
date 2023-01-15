@@ -19,7 +19,8 @@ Occasionally, in form of a blog-post or two I will use this as a space to summar
 
 I have a background in *Business*, *Neuroeconomics*, *Statistics* and *Cognitive Science*. A somewhat eclective, somewhat useful mix 
 of degrees that left me with an interdisciplinary perspective (read: I can, but also cannot relate to many folks) and a collection of skills to 
-do some constructive damage.
+do some constructive damage. If you have time on your hands and you are interested in what I have been up to for the last stint of education, feel free to read my 
+<a href="{{site.baseurl}}/data/af_phd_thesis_library_final_compressed.pdf"> PhD thesis </a>.
 
 Currently, I am a post doctoral researcher at the <a href="https://www.brown.edu/carney/">Carney Institute for Brain Science </a>, situated on the 
 campus of <a href="https://www.brown.edu/">Brown University </a> in Providence, Rhode Island. 

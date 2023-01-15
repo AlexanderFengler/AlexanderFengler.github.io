@@ -23,11 +23,11 @@ do some constructive damage.
 
 Currently, I am a post doctoral researcher at the <a href="https://www.brown.edu/carney/">Carney Institute for Brain Science </a>, situated on the 
 campus of <a href="https://www.brown.edu/">Brown University </a> in Providence, Rhode Island. 
-Here I continue the <a href="https://elifesciences.org/articles/65074">main line of research </a> on simulation based inference for cognitive process models.
+Here I continue the <a href="https://elifesciences.org/articles/65074"> main line of research </a> on simulation based inference for cognitive process models. 
 
 Conjointly I work as a Principal Data Scientist for <a href="https://www.pymc-labs.io/"> PyMC Labs </a>, 
 where I help clients with Bayesian Statistical Analysis. PyMC Labs is a Bayesian Consultancy with deep expertise in Statistical Methodology, 
-supercharged by the power of the <a href="https://www.pymc.io/welcome.html">PyMC</a> Python toolbox for Bayesian Inference.
+supercharged by the power of the <a href="https://www.pymc.io/welcome.html">PyMC</a> Python toolbox for Bayesian Inference. You can find a public presentation of this work <a href="{{site.baseurl}}/data/webinar_pymc.pdf"> here </a> (slides) and <a href="https://www.youtube.com/watch?v=LD03v_eOo88"> here </a> (video).
 
 If you want to know more about me (and you are a benign actor), you can check my <a href="{{site.baseurl}}/data/af_docs_cv_webpage.pdf">CV</a> or click on any of the handles at the bottom of this page.
 

@@ -54,7 +54,7 @@ To install `HDDM` type the following into your console:
 pip install git+https://github.com/hddm-devs/hddm
 ```
 <div class="text-center">
-<button class="black-button"><a href="https://github.com/hddm-devs/hddm">lanfactory</a></button>
+<button class="black-button"><a href="https://github.com/hddm-devs/hddm">hddm</a></button>
 </div>
 
 ### Tutorials

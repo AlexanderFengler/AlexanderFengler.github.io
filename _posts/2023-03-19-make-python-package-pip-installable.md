@@ -70,6 +70,24 @@ You will be asked for your username and password. Once the upload finished, you 
 pip install packagename
 ```
 
-#### Some Credits
+### MANIFEST
 
+The `sdist` command, will not necessarily include all the files in your package folder that are important for an actual installation of your package (e.g. if you have a `src` subfolder which includes a few `.c` or `.pyx` files). To explicitly include (and exclude) specific files and subfolders in the source distribution, you need to add a [`MANIFEST.in`](https://packaging.python.org/en/latest/guides/using-manifest-in/) file. The concent of these `MANIFEST.in` files follows a specific syntax, which you can find in the [documentation](https://packaging.python.org/en/latest/guides/using-manifest-in/).
+
+Below an example:
+
+```
+recursive-include docs
+include README.md LICENSE
+include mypackage *.py
+include src/*.pyx
+include notebooks/*
+global-exclude .gitignore
+global-exclude .git
+global-exclude *~
+global-exclude *.pyc
+global-exclude .#*
+```
+
+#### Some Credits
 This tutorial is a slightly adapted, mostly much reduced version of [this excellent blog post](https://betterscientificsoftware.github.io/python-for-hpc/tutorials/python-pypi-packaging/).

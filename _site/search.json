@@ -1,6 +1,20 @@
 [
   
     {
+      "title"    : "Make a python package pip installable",
+      "url"      : "/make-python-package-pip-installable/",
+      "category" : "python, pip, package, mac",
+      "date"     : "March 19, 2023"
+    } ,
+  
+    {
+      "title"    : "Sequential Sampling Model simulations with the ssms python package",
+      "url"      : "/the-ssms-python-package/",
+      "category" : "SSM, cython, simulation",
+      "date"     : "February 11, 2023"
+    } ,
+  
+    {
       "title"    : "Likelihood Approximation Networks",
       "url"      : "/likelihood-approximation-networks/",
       "category" : "LFI, SBI, DDM, SSM",

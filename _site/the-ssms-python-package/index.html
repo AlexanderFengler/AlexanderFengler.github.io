@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-5ZM1BLPVRB"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-5ZM1BLPVRB');
+</script>
+
+
+    <title>Sequential Sampling Model simulations with the ssms python package – Alexander Fengler – A saved space</title>
+    <!-- Begin Jekyll SEO tag v2.8.0 -->
+<meta name="generator" content="Jekyll v4.3.1" />
+<meta property="og:title" content="Sequential Sampling Model simulations with the ssms python package" />
+<meta name="author" content="Alexander Fengler" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="The ssms python package allows fast simulation from a range of Sequential Sampling Models" />
+<meta property="og:description" content="The ssms python package allows fast simulation from a range of Sequential Sampling Models" />
+<link rel="canonical" href="http://localhost:4000/the-ssms-python-package/" />
+<meta property="og:url" content="http://localhost:4000/the-ssms-python-package/" />
+<meta property="og:site_name" content="Alexander Fengler" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2023-02-11T00:00:00-05:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Sequential Sampling Model simulations with the ssms python package" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Alexander Fengler"},"dateModified":"2023-02-11T00:00:00-05:00","datePublished":"2023-02-11T00:00:00-05:00","description":"The ssms python package allows fast simulation from a range of Sequential Sampling Models","headline":"Sequential Sampling Model simulations with the ssms python package","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/the-ssms-python-package/"},"url":"http://localhost:4000/the-ssms-python-package/"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <meta content='text/html; charset=utf-8' http-equiv='Content-Type'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
+
+
+<meta property="og:description" content="The ssms python package allows fast simulation from a range of Sequential Sampling Models" />
+
+<meta name="author" content="Alexander Fengler" />
+
+
+<meta property="og:title" content="Sequential Sampling Model simulations with the ssms python package" />
+<meta property="twitter:title" content="Sequential Sampling Model simulations with the ssms python package" />
+
+
+
+<meta property="og:image" content="http://localhost:4000/images/af_face.png"/>
+<meta property="twitter:image" content="http://localhost:4000/images/af_face.png"/>
+
+
+
+    <link rel="stylesheet" type="text/css" href="/assets/style.css" />
+    <link rel="alternate" type="application/rss+xml" title="Alexander Fengler - A saved space" href="/feed.xml" />
+    <link rel="canonical" href="http://localhost:4000/the-ssms-python-package/" />
+
+    <meta name="theme-color" content="#000000">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  </head>
+
+  <body>
+    <div id="bar"></div>
+    <div class="wrapper-container">
+      <div class="wrapper-masthead">
+        <div class="container">
+          <header class="masthead clearfix">
+            <a href="/" class="site-avatar"> <!--class="site-avatar"> -->
+              <img src="/images/af_face.png" alt=""/>
+            </a>
+
+            <div class="site-info">
+              <h1 class="site-name"><a href="/">Alexander Fengler</a></h1>
+              <p class="site-description">A saved space</p> 
+            </div>
+
+            <nav>
+              <!-- <a href="/about">About Me</a> -->
+              <!-- <a href="/getting-started">Getting Started</a> -->
+              <a href="/code">Code</a>
+              <a href="/blog">Blog</a>
+              <a href="/search">Search</a>
+              <a href="/archive">Archive</a>
+            </nav>
+          </header>
+        </div>
+      </div>
+
+      <div class="wrapper-main">
+        <div id="main" role="main" class="container">
+          <!-- <script>
+  MathJax.Hub.Config({
+      displayAlign: 'left'
+  });
+</script> -->
+
+
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+<!-- <script type="text/x-mathjax-config">
+  MathJax = {
+    tex: {
+      align: 'left'
+    }
+  };
+</script> -->
+
+<script>
+  MathJax.Hub.Config({
+      displayAlign: 'left'
+  });
+</script>
+
+
+<article class="post detailed">
+  <h1>Sequential Sampling Model simulations with the ssms python package</h1>
+
+  <div>
+    <p class="author_title">Alexander Fengler  ·  February 11, 2023</p>
+    
+    <div class="post-tags">
+      
+      
+        <a href="/categories/#SSM">SSM</a>
+        &nbsp;
+      
+        <a href="/categories/#cython">cython</a>
+        &nbsp;
+      
+        <a href="/categories/#simulation">simulation</a>
+        
+      
+    </div>
+  </div>
+    
+  <div class="entry">
+    <p>This is a small tutorial to illustrate how to simulate data from a variety of <em>Sequential Sampling Models</em> (SSMs) using the <a href="https://github.com/AlexanderFengler/ssms"><code class="language-plaintext highlighter-rouge">ssms</code></a> python package.
+The main simulators in this package are written in <a href="https://cython.readthedocs.io/en/latest/"><code class="language-plaintext highlighter-rouge">cython</code></a>, to optimize for speed of computation.</p>
+
+<h3 id="ssms">SSMs?</h3>
+
+<p>SSMs take a central role in the joint modeling of reaction times and choice in Cognitive Science.</p>
+
+<p>The <a href="https://github.com/AlexanderFengler/ssms"><code class="language-plaintext highlighter-rouge">ssms</code></a> package is part of the <a href="https://hddm.readthedocs.io/en/latest/"><code class="language-plaintext highlighter-rouge">hddm</code></a> ecosystem to which, amongst others, the <a href="https://github.com/hddm-devs/kabuki"><code class="language-plaintext highlighter-rouge">kabuki</code></a> and <a href="https://github.com/AlexanderFengler/LANfactory"><code class="language-plaintext highlighter-rouge">lanfactory</code></a> python packages belong.</p>
+
+<p>It takes it’s place in this ecosystem, by providing the simulation backend for <a href="https://hddm.readthedocs.io/en/latest/"><code class="language-plaintext highlighter-rouge">hddm</code></a> package. Future blog-posts are going to complete this picture (and more), however for now note that <code class="language-plaintext highlighter-rouge">ssms</code> is useful in it’s own right.</p>
+
+<h3 id="installation-instructions-colab">Installation Instructions (colab)</h3>
+
+<p><em>Colab</em> notebooks usually have quite a few packages preinstalled. It should be sufficient to simply install the <code class="language-plaintext highlighter-rouge">ssms</code> package.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># !pip install git+https://github.com/AlexanderFengler/ssms@main
+</span></code></pre></div></div>
+
+<h3 id="import-modules">Import Modules</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">ssms</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="n">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+</code></pre></div></div>
+
+<h3 id="basic-package-outline">Basic Package Outline</h3>
+
+<p>Let’s take a quick look at the structure of the <a href="https://github.com/AlexanderFengler/ssms"><code class="language-plaintext highlighter-rouge">ssms</code></a> package by using the help functoin.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">help</span><span class="p">(</span><span class="n">ssms</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Help on package ssms:
+
+NAME
+    ssms
+
+PACKAGE CONTENTS
+    basic_simulators (package)
+    config (package)
+    dataset_generators (package)
+    support_utils (package)
+
+VERSION
+    0.2.0
+
+FILE
+    /users/afengler/data/software/miniconda3/envs/pymc_ak_lan/lib/python3.9/site-packages/ssms/__init__.py
+</code></pre></div></div>
+
+<p>The package consists of <strong>four main submodules</strong>.</p>
+
+<ol>
+  <li>The <code class="language-plaintext highlighter-rouge">basic_simulators</code> submodule, which provides low level access to the model simulators.</li>
+  <li>The <code class="language-plaintext highlighter-rouge">config</code> submodule provides configuration files for the models included.</li>
+  <li>The <code class="language-plaintext highlighter-rouge">dataset_generators</code> submodule builds on top of the <code class="language-plaintext highlighter-rouge">basic_simulators</code> module and supplies a variety of methods for systematically generating data for downstream usecases. This is biased towards generating training data for usage with the <a href="https://github.com/AlexanderFengler/LANfactory"><code class="language-plaintext highlighter-rouge">lanfactory</code></a> package. The <a href="https://github.com/AlexanderFengler/LANfactory"><code class="language-plaintext highlighter-rouge">lanfactory</code></a> package in turn feeds into the <a href="https://hddm.readthedocs.io/en/latest/"><code class="language-plaintext highlighter-rouge">hddm</code></a> package with compatible neural network classes. Learn more about what the goals behind this pipeline are <a href="https://elifesciences.org/articles/65074">here</a> and <a href="https://direct.mit.edu/jocn/article/34/10/1780/112585/Beyond-Drift-Diffusion-Models-Fitting-a-Broad">here</a>.</li>
+  <li>The <code class="language-plaintext highlighter-rouge">support_utils</code> module collect a few convenience functions that may be helpful when using <a href="https://github.com/AlexanderFengler/ssms"><code class="language-plaintext highlighter-rouge">ssms</code></a>.</li>
+</ol>
+
+<h3 id="background-on-the-modeling-framework">Background on the modeling framework</h3>
+
+<p>Let’s simulate some data from the basic <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2474742/">Diffusion Decision Model</a> (DDM).
+We can use the <code class="language-plaintext highlighter-rouge">ssms.config.model_config</code> dictionary to check some information about this model. Importantly we can check the number, name (and order) of parameters under the <code class="language-plaintext highlighter-rouge">'params'</code> keyword. In this case there are <em>four parameters</em>, <code class="language-plaintext highlighter-rouge">['v', 'a', 'z', 't']</code>.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ssms</span><span class="p">.</span><span class="n">config</span><span class="p">.</span><span class="n">model_config</span><span class="p">[</span><span class="s">'ddm'</span><span class="p">]</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{'name': 'ddm',
+ 'params': ['v', 'a', 'z', 't'],
+ 'param_bounds': [[-3.0, 0.3, 0.1, 0.0], [3.0, 2.5, 0.9, 2.0]],
+ 'boundary': &lt;function ssms.basic_simulators.boundary_functions.constant(t=0)&gt;,
+ 'n_params': 4,
+ 'default_params': [0.0, 1.0, 0.5, 0.001],
+ 'hddm_include': ['z'],
+ 'nchoices': 2}
+</code></pre></div></div>
+
+<p>There is a large literature applying the DDM for the analysis of reaction time and choice data from a large variety of behavioral and/or psychophysics experiments. You can learn more about the interpretation of these parameters e.g. <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2474742/">here</a>.</p>
+
+<p>Shortly, the Diffusion Decision Model assumes that decision and reactions times derive from boundary crossings of a particle diffusion process. The parameters then have the following interpretations:</p>
+
+<ol>
+  <li>‘v’ is a <em>deterministic drift</em> applied to the particle over time (one interpretation is that this describes the <em>rate of evidence accumulation</em> over time).</li>
+  <li>‘a’ is the <em>height of the boundary</em> to be crossed (crossing the upper or lower boundary respectively describe unique choices).</li>
+  <li>‘z’ is the <em>starting point</em> of the particle (which may be biased towards either boundary, in turn representing choice options).</li>
+  <li>‘t’ accounts for the part of a final reaction <em>time captured by all processes unrelated to the actual processing of the decision-relevant evidence</em>. It simply shifts the final decision time.</li>
+</ol>
+
+<p>The picture below illustrates. Note, the upper and lower black histograms describe the reaction time distributions for the upper and lower choice respectively.</p>
+
+<p align="center" width="100%">
+    <img width="60%" src="/images/use_ssms_files/ddm_process.png" />
+</p>
+
+<h3 id="lets-simulate">Let’s simulate</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">ssms.basic_simulators</span> <span class="kn">import</span> <span class="n">simulator</span>
+</code></pre></div></div>
+
+<p>Using the <code class="language-plaintext highlighter-rouge">simulator()</code> function we can pick our model of choice (<code class="language-plaintext highlighter-rouge">model</code> argument), supply a vector (or matrix for a trial-wise logic on parameter values) of parameters and set a number of <code class="language-plaintext highlighter-rouge">n_samples</code> we want to draw from our DDM process. The <code class="language-plaintext highlighter-rouge">delta_t</code> arguments controls how fine-grained the time-steps of our simulator are. Interpret $0.001$ as timesteps of $1ms$. Making the time-steps coarser, will speed up the simulation however reduce the accuracy with which the underlying diffusion process is represented by the simulations.</p>
+
+<p><code class="language-plaintext highlighter-rouge">ssms</code> uses the basic <a href="https://en.wikipedia.org/wiki/Euler%E2%80%93Maruyama_method">Euler Maruyama method</a> to forward simulate the diffusion trajectories (particle trajectories).</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">simulations</span> <span class="o">=</span> <span class="n">simulator</span><span class="p">(</span><span class="n">model</span> <span class="o">=</span> <span class="s">'ddm'</span><span class="p">,</span>
+                        <span class="n">theta</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">],</span>
+                        <span class="n">n_samples</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">,</span>
+                        <span class="n">delta_t</span> <span class="o">=</span> <span class="mf">0.001</span><span class="p">,</span>
+                        <span class="n">random_state</span> <span class="o">=</span> <span class="mi">42</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>The output of the simulator function is python <code class="language-plaintext highlighter-rouge">dictionary</code>, with <em>three keys</em>.</p>
+
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">rts</code> storing the simulated reaction times. Values are positive real numbers.</li>
+  <li><code class="language-plaintext highlighter-rouge">choices</code> storing the respective choices. Values are <code class="language-plaintext highlighter-rouge">-1</code>, <code class="language-plaintext highlighter-rouge">1</code> respectively for lower and upper boundary crossings.</li>
+  <li><code class="language-plaintext highlighter-rouge">metadata</code> stores information about the simulator configurations and more.</li>
+</ol>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">simulations</span><span class="p">.</span><span class="n">keys</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dict_keys(['rts', 'choices', 'metadata'])
+</code></pre></div></div>
+
+<p>A simple way to plot the resulting simulator runs is to put negative choices (the lower bound was crossed) on the negative real numbers, and positive choices on the positive real numbers, then using a simple histogram to illustrate the total (choice, reaction-time) - distribution.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">plt</span><span class="p">.</span><span class="n">hist</span><span class="p">(</span><span class="n">simulations</span><span class="p">[</span><span class="s">'rts'</span><span class="p">]</span> <span class="o">*</span> <span class="n">simulations</span><span class="p">[</span><span class="s">'choices'</span><span class="p">],</span> 
+         <span class="n">bins</span> <span class="o">=</span> <span class="mi">30</span><span class="p">,</span> 
+         <span class="n">histtype</span> <span class="o">=</span> <span class="s">'step'</span><span class="p">,</span> 
+         <span class="n">color</span> <span class="o">=</span> <span class="s">'black'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">"Reaction Times"</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">"Density"</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="s">"Simulated Choice/Reaction-Time Distribution: DDM"</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p align="center" width="100%">
+    <img width="60%" src="/images/use_ssms_files/use_ssms_21_0.png" />
+</p>
+
+<h3 id="changing-the-model">Changing the Model</h3>
+
+<p>Instead we might be interested in simulating from a model of the following form.</p>
+
+<p align="center" width="100%">
+    <img width="60%" src="/images/use_ssms_files/angle_process.png" />
+</p>
+
+<p>We can check the properties of this model via the <code class="language-plaintext highlighter-rouge">ssms.config.model_config</code> dictionary again. This time under the <code class="language-plaintext highlighter-rouge">angle</code>, <code class="language-plaintext highlighter-rouge">key</code>.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ssms</span><span class="p">.</span><span class="n">config</span><span class="p">.</span><span class="n">model_config</span><span class="p">[</span><span class="s">'angle'</span><span class="p">]</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{'name': 'angle',
+ 'params': ['v', 'a', 'z', 't', 'theta'],
+ 'param_bounds': [[-3.0, 0.3, 0.1, 0.001, -0.1], [3.0, 3.0, 0.9, 2.0, 1.3]],
+ 'boundary': &lt;function ssms.basic_simulators.boundary_functions.angle(t=1, theta=1)&gt;,
+ 'n_params': 5,
+ 'default_params': [0.0, 1.0, 0.5, 0.001, 0.0],
+ 'hddm_include': ['z', 'theta'],
+ 'nchoices': 2}
+</code></pre></div></div>
+
+<p>The parameters are equivalent to the DDM models’, however the <code class="language-plaintext highlighter-rouge">theta</code> parameter is added, which specifies the <em>angle of the boundaries</em>.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">simulations_angle</span> <span class="o">=</span> <span class="n">simulator</span><span class="p">(</span><span class="n">model</span> <span class="o">=</span> <span class="s">'angle'</span><span class="p">,</span>
+                        <span class="n">theta</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">],</span>
+                        <span class="n">n_samples</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">,</span>
+                        <span class="n">delta_t</span> <span class="o">=</span> <span class="mf">0.001</span><span class="p">,</span>
+                        <span class="n">random_state</span> <span class="o">=</span> <span class="mi">42</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">plt</span><span class="p">.</span><span class="n">hist</span><span class="p">(</span><span class="n">simulations_angle</span><span class="p">[</span><span class="s">'rts'</span><span class="p">]</span> <span class="o">*</span> <span class="n">simulations_angle</span><span class="p">[</span><span class="s">'choices'</span><span class="p">],</span> 
+         <span class="n">bins</span> <span class="o">=</span> <span class="mi">30</span><span class="p">,</span> 
+         <span class="n">histtype</span> <span class="o">=</span> <span class="s">'step'</span><span class="p">,</span> 
+         <span class="n">color</span> <span class="o">=</span> <span class="s">'black'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">"Reaction Times"</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">"Density"</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="s">"Simulated Choice/Reaction-Time Distribution: Angle"</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p align="center" width="100%">
+    <img width="60%" src="/images/use_ssms_files/use_ssms_28_0.png" />
+</p>
+
+<p>We can change to value of the <code class="language-plaintext highlighter-rouge">theta</code> parameter, and observe how the simulated reaction times change in response.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">simulations_angle</span> <span class="o">=</span> <span class="n">simulator</span><span class="p">(</span><span class="n">model</span> <span class="o">=</span> <span class="s">'angle'</span><span class="p">,</span>
+                        <span class="n">theta</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">],</span>
+                        <span class="n">n_samples</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">,</span>
+                        <span class="n">delta_t</span> <span class="o">=</span> <span class="mf">0.001</span><span class="p">,</span>
+                        <span class="n">random_state</span> <span class="o">=</span> <span class="mi">42</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">plt</span><span class="p">.</span><span class="n">hist</span><span class="p">(</span><span class="n">simulations_angle</span><span class="p">[</span><span class="s">'rts'</span><span class="p">]</span> <span class="o">*</span> <span class="n">simulations_angle</span><span class="p">[</span><span class="s">'choices'</span><span class="p">],</span> 
+         <span class="n">bins</span> <span class="o">=</span> <span class="mi">30</span><span class="p">,</span> 
+         <span class="n">histtype</span> <span class="o">=</span> <span class="s">'step'</span><span class="p">,</span> 
+         <span class="n">color</span> <span class="o">=</span> <span class="s">'black'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">"Reaction Times"</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">"Density"</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="s">"Simulated Choice/Reaction-Time Distribution: Angle"</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p align="center" width="100%">
+    <img width="60%" src="/images/use_ssms_files/use_ssms_31_0.png" />
+</p>
+
+<h3 id="how-to-investigate-the-ready-to-use-models">How to investigate the ready-to-use models</h3>
+
+<p><code class="language-plaintext highlighter-rouge">ssms</code> comes with a large variety of such model variations predefined. As mentioned above, you can learn about them by inspecting the <code class="language-plaintext highlighter-rouge">model_config</code> dictionary.
+Few basic principles may help you navigate the space of the models. Take another example, the model corresponding to the <code class="language-plaintext highlighter-rouge">"weibull"</code>, <code class="language-plaintext highlighter-rouge">key</code>.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ssms</span><span class="p">.</span><span class="n">config</span><span class="p">.</span><span class="n">model_config</span><span class="p">[</span><span class="s">'weibull'</span><span class="p">]</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{'name': 'weibull',
+ 'params': ['v', 'a', 'z', 't', 'alpha', 'beta'],
+ 'param_bounds': [[-2.5, 0.3, 0.2, 0.001, 0.31, 0.31],
+  [2.5, 2.5, 0.8, 2.0, 4.99, 6.99]],
+ 'boundary': &lt;function ssms.basic_simulators.boundary_functions.weibull_cdf(t=1, alpha=1, beta=1)&gt;,
+ 'n_params': 6,
+ 'default_params': [0.0, 1.0, 0.5, 0.001, 3.0, 3.0],
+ 'hddm_include': ['z', 'alpha', 'beta'],
+ 'nchoices': 2}
+</code></pre></div></div>
+
+<p>To understand the properties of this model look for the following attributes.</p>
+
+<ol>
+  <li>The <code class="language-plaintext highlighter-rouge">v</code>, <code class="language-plaintext highlighter-rouge">a</code>, <code class="language-plaintext highlighter-rouge">z</code>, <code class="language-plaintext highlighter-rouge">t</code> parameters have essentially equivalent interpretations across the board (see above).</li>
+  <li>The <code class="language-plaintext highlighter-rouge">boundary</code> is either <code class="language-plaintext highlighter-rouge">None</code> or a <code class="language-plaintext highlighter-rouge">function</code>, which is vectorized along the <code class="language-plaintext highlighter-rouge">t</code> input (for time). The argument names to the function correspond to the names in the <code class="language-plaintext highlighter-rouge">params</code>, <code class="language-plaintext highlighter-rouge">key</code>. Here, the <code class="language-plaintext highlighter-rouge">alpha</code> and <code class="language-plaintext highlighter-rouge">beta</code> arguments refer to boundary parameters.</li>
+  <li>The <code class="language-plaintext highlighter-rouge">nchoices</code>, <code class="language-plaintext highlighter-rouge">key</code> contains the number of choice options that a given model allows. To interpret model behavior, there are essentially two kinds of settings. Either <code class="language-plaintext highlighter-rouge">nchoices</code> is set to <code class="language-plaintext highlighter-rouge">2</code>, in which case the model can be interpreted as simulating a <em>single particle</em> which moves between two (upper and lower) boundaries. If <code class="language-plaintext highlighter-rouge">nchoices &gt; 2</code>, then we should interpret the model as have as many moving particles, which cross a single <em>upper</em> bound.</li>
+</ol>
+
+<p>Let’s take a look at the <em>boundary</em> of the <code class="language-plaintext highlighter-rouge">"weibull"</code> model.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">ssms.basic_simulators.boundary_functions</span> <span class="kn">import</span> <span class="n">weibull_cdf</span>
+
+<span class="n">plt</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1000</span><span class="p">),</span> 
+         <span class="n">weibull_cdf</span><span class="p">(</span><span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">1000</span><span class="p">),</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">1.5</span><span class="p">,</span> <span class="n">beta</span> <span class="o">=</span> <span class="mi">3</span><span class="p">),</span>
+         <span class="n">color</span> <span class="o">=</span> <span class="s">'black'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1000</span><span class="p">),</span> 
+         <span class="o">-</span><span class="n">weibull_cdf</span><span class="p">(</span><span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">1000</span><span class="p">),</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">1.5</span><span class="p">,</span> <span class="n">beta</span> <span class="o">=</span> <span class="mi">3</span><span class="p">),</span>
+         <span class="n">color</span> <span class="o">=</span> <span class="s">'black'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mf">1.1</span><span class="p">,</span> <span class="mf">1.1</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="s">"weibull_cdf() boundary"</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">"Time in seconds"</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">"Boundary Value"</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p align="center" width="100%">
+    <img width="60%" src="/images/use_ssms_files/use_ssms_36_0.png" />
+</p>
+
+<p>There are <em>two styles</em> or boundaries: <code class="language-plaintext highlighter-rouge">multiplicative</code> and <code class="language-plaintext highlighter-rouge">additive</code>.</p>
+
+<p>If the boundary function automatically gives you boundary values between $0$ and $1$, then the boundary will be <code class="language-plaintext highlighter-rouge">multiplicative</code>, meaning that the <code class="language-plaintext highlighter-rouge">a</code> parameters will be multiplied by the boundary shape to get the final boundary applied in the simulator. Else, <code class="language-plaintext highlighter-rouge">a</code> will be added to the boundary returned by the given bounadry function.</p>
+
+<p>Hence, the <code class="language-plaintext highlighter-rouge">weibull_cdf()</code> boundary is <code class="language-plaintext highlighter-rouge">multiplicative</code>.</p>
+
+<p>In contrast consider the <code class="language-plaintext highlighter-rouge">angle()</code> boundary.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">ssms.basic_simulators.boundary_functions</span> <span class="kn">import</span> <span class="n">angle</span>
+
+<span class="n">plt</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1000</span><span class="p">),</span> 
+         <span class="n">angle</span><span class="p">(</span><span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">1000</span><span class="p">),</span> <span class="n">theta</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">),</span>
+         <span class="n">color</span> <span class="o">=</span> <span class="s">'black'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="s">"angle() boundary"</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">"Time in seconds"</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">"Boundary value"</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p align="center" width="100%">
+    <img width="60%" src="/images/use_ssms_files/use_ssms_38_0.png" />
+</p>
+
+<h3 id="timings">Timings</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">time</span>
+<span class="n">n_samples</span> <span class="o">=</span> <span class="mi">1000</span>
+<span class="n">time_start</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+    <span class="n">simulations_angle</span> <span class="o">=</span> <span class="n">simulator</span><span class="p">(</span><span class="n">model</span> <span class="o">=</span> <span class="s">'ddm'</span><span class="p">,</span>
+                                  <span class="n">theta</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">],</span>
+                                  <span class="n">n_samples</span> <span class="o">=</span> <span class="n">n_samples</span><span class="p">,</span>
+                                  <span class="n">delta_t</span> <span class="o">=</span> <span class="mf">0.001</span><span class="p">,</span>
+                                  <span class="n">random_state</span> <span class="o">=</span> <span class="mi">42</span><span class="p">)</span>
+<span class="n">time_end</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span>
+               
+<span class="k">print</span><span class="p">(</span><span class="s">'The simulator ran an average of '</span><span class="p">,</span> <span class="nb">round</span><span class="p">((</span><span class="n">time_end</span> <span class="o">-</span> <span class="n">time_start</span><span class="p">)</span> <span class="o">/</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="s">'seconds </span><span class="se">\n</span><span class="s">to produce'</span><span class="p">,</span> <span class="n">n_samples</span><span class="p">,</span> <span class="s">'sample trajectories from the DDM!'</span><span class="p">)</span> 
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>The simulator ran an average of  0.09 seconds 
+to produce 1000 sample trajectories from the DDM!
+</code></pre></div></div>
+
+<h3 id="end">End</h3>
+
+<p>Stay tuned for a sequence of blog posts, which will close the gap (via the <a href="https://github.com/AlexanderFengler/LANfactory"><code class="language-plaintext highlighter-rouge">lanfactory</code></a> package) towards using the <a href="https://hddm.readthedocs.io/en/latest/"><code class="language-plaintext highlighter-rouge">hddm</code></a> and finally the <a href="https://www.pymc.io/welcome.html"><code class="language-plaintext highlighter-rouge">pymc</code></a> python package for purposes of hierarchical bayesian modeling (inference) with such SSMs.</p>
+
+<p>We will learn more about <a href="https://github.com/AlexanderFengler/ssms"><code class="language-plaintext highlighter-rouge">ssms</code></a>, specifically how to leverage the package to generate training data for <a href="https://github.com/google/jax"><code class="language-plaintext highlighter-rouge">jax</code></a> (with the help of the <a href="https://flax.readthedocs.io/en/latest/"><code class="language-plaintext highlighter-rouge">flax</code></a> and <a href="https://optax.readthedocs.io/en/latest/"><code class="language-plaintext highlighter-rouge">optax</code></a> packages) and <a href="https://pytorch.org/"><code class="language-plaintext highlighter-rouge">pytorch</code></a> networks. We will then consider training such networks conveniently with the <a href="https://github.com/AlexanderFengler/LANfactory"><code class="language-plaintext highlighter-rouge">lanfactory</code></a> package.</p>
+
+<p>Such neural networks can then be used as likelihood functions for bayesian inference with <a href="https://hddm.readthedocs.io/en/latest/"><code class="language-plaintext highlighter-rouge">hddm</code></a> and/or <a href="https://www.pymc.io/welcome.html"><code class="language-plaintext highlighter-rouge">pymc</code></a>, following <a href="https://elifesciences.org/articles/65074">recent research</a> in computational cognitive science. We will motivate why one may be interested in this approach to inference.</p>
+
+  </div>
+
+  <div>
+    <p><span class="share-box">Share:</span> <a href="http://twitter.com/share?text=Sequential Sampling Model simulations with the ssms python package&url=http://localhost:4000/the-ssms-python-package/" target="_blank">Twitter</a>, <a href="https://www.facebook.com/sharer.php?u=http://localhost:4000/the-ssms-python-package/" target="_blank">Facebook</a></p>
+  </div>
+
+  <!--<div class="date">
+    Written on February 11, 2023
+  </div>-->
+
+  
+<!-- <div class="comments">
+	<div id="disqus_thread"></div>
+	<script type="text/javascript">
+
+	    var disqus_shortname = 'alexanderfengler-github-io';
+
+	    (function() {
+	        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+	        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+	        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	    })();
+
+	</script>
+	<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div> -->
+
+<div id="disqus_thread"></div>
+<script>
+    /**
+    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+    /*
+    var disqus_config = function () {
+    this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+    this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://alexanderfengler-github-io.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+</article>
+
+        </div>
+      </div>
+
+      <div class="wrapper-footer">
+        <div class="container">
+          <footer class="footer">
+            
+<a href="mailto:fengleralexander@gmail.com"><i class="svg-icon email"></i></a>
+
+
+<a href="https://github.com/AlexanderFengler"><i class="svg-icon github"></i></a>
+
+<a href="https://www.linkedin.com/in/alexander-fengler-89560b74"><i class="svg-icon linkedin"></i></a>
+
+
+<a href="http://stackoverflow.com//users/3431663"><i class="svg-icon stackoverflow"></i></a>
+<a href="https://www.twitter.com/UniFersAlex"><i class="svg-icon twitter"></i></a>
+
+
+
+
+
+          </footer>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

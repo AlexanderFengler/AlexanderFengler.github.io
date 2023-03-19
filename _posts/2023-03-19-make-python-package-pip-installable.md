@@ -27,7 +27,7 @@ python setup.py check
 If no errors are raise, then proceed with creating the source distribution,
 
 ```bash
-python setup sdist
+python setup.py sdist
 ```
 
 This will create (if not available) a `dist` folder and a `tar.gz` file with a file name roughly like `packagename-version.tar.gz`.

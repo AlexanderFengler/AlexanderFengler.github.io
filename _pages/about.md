@@ -30,5 +30,5 @@ Conjointly I work as a Principal Data Scientist for <a href="https://www.pymc-la
 where I help clients with Bayesian Statistical Analysis. PyMC Labs is a Bayesian Consultancy with deep expertise in Statistical Methodology, 
 supercharged by the power of the <a href="https://www.pymc.io/welcome.html">PyMC</a> Python toolbox for Bayesian Inference. You can find a public presentation of this work <a href="{{site.baseurl}}/data/webinar_pymc.pdf"> here </a> (slides) and <a href="https://www.youtube.com/watch?v=LD03v_eOo88"> here </a> (video).
 
-If you want to know more about me (and you are a benign actor), you can check my <a href="{{site.baseurl}}/data/af_docs_cv_webpage.pdf">CV</a> or click on any of the handles at the bottom of this page.
+If you want to know more about me (and you are a benign actor), you can check my <a href="{{site.baseurl}}/data/af_docs_cv_webpage.pdf">CV</a>, the <a href="{{site.baseurl}}/data/af_docs_cv_one_page.pdf">one page resume</a>, or click on any of the handles at the bottom of this page.
 
